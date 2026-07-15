@@ -78,13 +78,13 @@ body {
     animation: marqueeScroll 48s linear infinite;
   }
 
-  /* Oxblood drop cap on the opening bio paragraph */
-  .drop-cap::first-letter {
+  /* Oxblood drop word opening the bio — styles the whole first word */
+  .drop-word {
     float: left;
     font-family: "Instrument Serif", Georgia, serif;
     font-size: 3.1em;
     line-height: 0.8;
-    padding-right: 0.14em;
+    padding-right: 0.16em;
     margin-top: 0.06em;
     color: hsl(var(--oxblood));
   }

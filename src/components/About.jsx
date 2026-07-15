@@ -1,7 +1,7 @@
 import Reveal from "./Reveal.jsx";
 
 const FACTS = [
-  ["Beat", "Climate & Culture"],
+  ["Currently", "Eugene Weekly · Ascend · Align"],
   ["Based", "Eugene, OR"],
   ["School", "UO · SOJC"],
   ["Class of", "2027"],
@@ -9,9 +9,9 @@ const FACTS = [
 ];
 
 const PARAGRAPHS = [
-  "I am a journalism student at the University of Oregon’s School of Journalism and Communication, pursuing a Bachelor of Arts through the Clark Honors College with a minor in Food Studies. I write feature stories that begin with people and end somewhere larger — climate, sustainability, community, or the small institutions that make a city feel like itself.",
-  "My work has appeared in the Eugene Weekly, Ethos Magazine, Ascend Magazine, Align Magazine, and the Daily Emerald. As a writer for SOJC Communications, I report on alumni, faculty research, and student work.",
-  "In 2025, my climate reporting earned an Honorable Mention from the Associated Collegiate Press in the Local Climate Change Reporting category for Stories of the Year. I’m interested in the slow story — the kind that asks readers to sit with a place long enough to understand it.",
+  "Hi I'm Lily Reese, a journalism major at the University of Oregon with a minor in Food Studies, pursuing my BA through the Clark Honors College. My work explores the connections between people, place, and sustainability — through food, art, sport, and community — approaching journalism as a way to understand how individuals and systems shape one another.",
+  "I report for the Eugene Weekly, serve as editorial lead, copy editor, and writer for Ascend Magazine, direct Align Magazine, and cover alumni profiles, faculty research, and cultural stories as a writing intern for the SOJC. My work has also appeared in Ethos Magazine and the Daily Emerald, where I spent a year on the copy desk.",
+  "From community gardens rooted in sustainability, to theater companies redefining performance as connection, to small towns confronting air-quality challenges my reporting continues to grow. Across these stories, I’m drawn to what brings people together — and I believe journalism should do more than inform: it should invite reflection, foster empathy, and strengthen the bonds that tie us to one another.",
 ];
 
 export default function About() {
@@ -55,11 +55,17 @@ export default function About() {
           <div className="col-span-12 md:col-span-5">
             <Reveal delay={160}>
               <div className="serif space-y-6 text-xl leading-relaxed text-[hsl(var(--ink-soft))] md:text-[1.35rem] md:leading-relaxed">
-                {PARAGRAPHS.map((text, i) => (
-                  <p key={text.slice(0, 24)} className={i === 0 ? "drop-cap" : undefined}>
-                    {text}
-                  </p>
-                ))}
+                {PARAGRAPHS.map((text, i) => {
+                  if (i === 0) {
+                    const [firstWord, ...rest] = text.split(" ");
+                    return (
+                      <p key={text.slice(0, 24)}>
+                        <span className="drop-word">{firstWord}</span> {rest.join(" ")}
+                      </p>
+                    );
+                  }
+                  return <p key={text.slice(0, 24)}>{text}</p>;
+                })}
               </div>
             </Reveal>
           </div>

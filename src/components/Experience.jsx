@@ -15,7 +15,7 @@ const ROLES = [
   },
   {
     year: "2025",
-    role: "Writer & Editor",
+    role: "Editorial Lead, Copy Editor & Writer",
     org: "Ascend Magazine",
     location: "Eugene, OR",
     range: "Nov 2025 – Present",
@@ -29,7 +29,7 @@ const ROLES = [
   },
   {
     year: "2025",
-    role: "Communications Writer",
+    role: "Writing Intern",
     org: "SOJC Communications",
     location: "Eugene, OR",
     range: "Apr 2025 – Present",
@@ -43,8 +43,8 @@ const ROLES = [
     role: "Copy Editor",
     org: "Daily Emerald",
     location: "Eugene, OR",
-    range: "Mar 2025 – Present",
-    now: true,
+    range: "Mar 2025 – Mar 2026",
+    now: false,
     bullets: [
       "Edit articles for grammar, clarity, AP style, and factual accuracy across the desk.",
       "Work across news, opinion, arts, and sports sections to ensure consistency and coherence.",
@@ -55,8 +55,8 @@ const ROLES = [
     role: "Writer",
     org: "Ethos Magazine",
     location: "Eugene, OR",
-    range: "Oct 2023 – Present",
-    now: true,
+    range: "Oct 2023 – Mar 2026",
+    now: false,
     bullets: [
       "Pitch and develop long-form story ideas for a student-run feature magazine.",
       "Conduct interviews and research to produce well-reported, AP-style features.",
@@ -65,23 +65,23 @@ const ROLES = [
   },
   {
     year: "2023",
-    role: "Writer",
+    role: "Writer, Copy Editor & Director",
     org: "Align Magazine",
     location: "Eugene, OR",
-    range: "Sep 2023 – Nov 2025",
-    now: false,
+    range: "Sep 2023 – Present",
+    now: true,
     bullets: [
       "Contributed opinion-driven pieces on fashion, culture, and the arts.",
       "Developed original pitches and crafted narratives for a term-by-term publication.",
-      "Edited and refined pieces to align with the magazine’s creative vision.",
+      "Progressed from writer and copy editor to director, helping guide the magazine’s creative vision.",
     ],
   },
 ];
 
 const STATS = [
   ["Bylines & Edits", "6 publications"],
-  ["Current Beats", "Climate · Sports · Culture"],
-  ["Editing", "Daily Emerald Copy"],
+  ["Focus", "People · Place · Sustainability"],
+  ["Editing", "Ascend · Align"],
 ];
 
 const HONORS = [

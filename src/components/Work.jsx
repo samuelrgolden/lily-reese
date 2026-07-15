@@ -79,14 +79,37 @@ const ARTICLES = [
     img: "/work/ascend-issue-2.webp",
   },
   {
-    title: "The Sustainability Dilemma at the Heart of Community Living",
-    pub: "Ethos Magazine",
-    date: "Dec 1, 2025",
-    tags: ["Climate", "Community", "Features"],
+    title: "Oakridge through the eyes and ears of a journalism team from the U of O",
+    pub: "Highway 58 Herald",
+    date: "Jun 26, 2025",
+    tags: ["Audio", "Community"],
+    kind: "class",
     description:
-      "Inside Lost Valley, an intentional community grappling with what it really costs to live sustainably.",
-    href: "https://dailyemerald.com/185072/features/the-sustainability-dilemma-at-the-heart-of-community-living/",
-    img: "/work/sustainability-dilemma.webp",
+      "Oakridge’s hometown paper on the UO audio team — Lily among its reporters — that spent a term telling the town’s stories.",
+    href: "https://highway58herald.org/oakridge-through-the-eyes-and-ears-of-a-journalism-team-from-the-u-of-o/",
+    img: "/work/oakridge-herald.webp",
+  },
+  {
+    title: "75,000 Lane County Residents Rely on Food Benefits, and Many Face a Cutoff This April",
+    pub: "JCOM 332",
+    date: "Public Affairs",
+    tags: ["Food", "Policy"],
+    kind: "class",
+    description:
+      "As expanded federal work requirements take hold, tens of thousands of Lane County SNAP recipients face losing their food benefits.",
+    href: "https://lilylreese.wixsite.com/lily-reese-portfol-1/copy-of-new-page",
+    img: "/work/food-benefits.webp",
+  },
+  {
+    title: "Plenty of Food, Not Enough Meals",
+    pub: "JCOM 332",
+    date: "Public Affairs Final",
+    tags: ["Food", "Community"],
+    kind: "class",
+    description:
+      "Oregon’s food network moves millions of pounds of groceries a year — but for unhoused people, infrastructure, not supply, decides whether food becomes a meal.",
+    href: "https://lilylreese.wixsite.com/lily-reese-portfol-1/final",
+    img: "/work/plenty-of-food.webp",
   },
   {
     title: "Are We All Victims of the Madonna–Whore Complex?",
@@ -98,13 +121,14 @@ const ARTICLES = [
     img: "/work/madonna-whore.webp",
   },
   {
-    title: "The Partnerships Keeping Eugene’s Theater Alive",
+    title: "The Sustainability Dilemma at the Heart of Community Living",
     pub: "Ethos Magazine",
-    date: "May 12, 2025",
-    tags: ["Arts", "Community"],
-    description: "How a network of small companies and stubborn artists keep live performance going.",
-    href: "https://dailyemerald.com/185015/features/the-partnerships-keeping-eugenes-theater-alive/",
-    img: "/work/eugene-theater.webp",
+    date: "Dec 1, 2025",
+    tags: ["Climate", "Community", "Features"],
+    description:
+      "Inside Lost Valley, an intentional community grappling with what it really costs to live sustainably.",
+    href: "https://dailyemerald.com/185072/features/the-sustainability-dilemma-at-the-heart-of-community-living/",
+    img: "/work/sustainability-dilemma.webp",
   },
   {
     title: "Sensitivity and Climate Disaster Conversations",
@@ -116,13 +140,13 @@ const ARTICLES = [
     img: "/work/climate-conversations.webp",
   },
   {
-    title: "Growing the Grove Garden: The Need for Intentional Communities",
+    title: "The Partnerships Keeping Eugene’s Theater Alive",
     pub: "Ethos Magazine",
-    date: "Jun 5, 2024",
-    tags: ["Climate", "Community", "Food"],
-    description: "A community garden in Eugene becomes a study in what shared land can teach.",
-    href: "https://dailyemerald.com/184070/features/growing-the-grove-garden-the-need-for-intentional-communities/",
-    img: "/work/grove-garden.webp",
+    date: "May 12, 2025",
+    tags: ["Arts", "Community"],
+    description: "How a network of small companies and stubborn artists keep live performance going.",
+    href: "https://dailyemerald.com/185015/features/the-partnerships-keeping-eugenes-theater-alive/",
+    img: "/work/eugene-theater.webp",
   },
   {
     title: "Master’s Student Builds Diversity into Lego Campaign",
@@ -135,6 +159,26 @@ const ARTICLES = [
     img: "/work/lego-campaign.webp",
   },
   {
+    title: "Johani Askin’s Journey & Psychedelic Facilitation Through Cultural Connection",
+    pub: "JCOM 331",
+    date: "Reporting Profile",
+    tags: ["Profiles", "Health"],
+    kind: "class",
+    description:
+      "Inside EPIC Healing Eugene with a licensed psilocybin facilitator who guides clients under Oregon’s Measure 109.",
+    href: "https://lilylreese.wixsite.com/lily-reese-portfol-1/copy-of-public-meeting",
+    img: "/work/askins-profile.webp",
+  },
+  {
+    title: "Growing the Grove Garden: The Need for Intentional Communities",
+    pub: "Ethos Magazine",
+    date: "Jun 5, 2024",
+    tags: ["Climate", "Community", "Food"],
+    description: "A community garden in Eugene becomes a study in what shared land can teach.",
+    href: "https://dailyemerald.com/184070/features/growing-the-grove-garden-the-need-for-intentional-communities/",
+    img: "/work/grove-garden.webp",
+  },
+  {
     title: "Embracing Change: Exploring Alternative Psilocybin Treatments in Eugene",
     pub: "Ethos Magazine",
     date: "Jun 4, 2024",
@@ -145,8 +189,8 @@ const ARTICLES = [
   },
 ];
 
-/* Filter by masthead — every publication Lily has bylines in */
-const FILTERS = ["All", "Eugene Weekly", "SOJC", "Ascend Magazine", "Ethos Magazine"];
+/* Filter by masthead — plus a Class Work view for coursework reporting */
+const FILTERS = ["All", "Eugene Weekly", "SOJC", "Ascend Magazine", "Ethos Magazine", "Class Work"];
 
 function ArticleCard({ article, index }) {
   return (
@@ -200,7 +244,12 @@ function ArticleCard({ article, index }) {
 
 export default function Work() {
   const [filter, setFilter] = useState("All");
-  const shown = filter === "All" ? ARTICLES : ARTICLES.filter((a) => a.pub === filter);
+  const shown =
+    filter === "All"
+      ? ARTICLES
+      : filter === "Class Work"
+        ? ARTICLES.filter((a) => a.kind === "class")
+        : ARTICLES.filter((a) => a.pub === filter);
 
   return (
     <section id="work" className="py-14 md:py-16">
