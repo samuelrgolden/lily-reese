@@ -1,0 +1,4 @@
+# Netlify build settings — build the Vite site from source and publish dist/
+[build]
+  command = "npm run build"
+  publish = "dist"
