@@ -9,7 +9,7 @@ const FACTS = [
 ];
 
 const PARAGRAPHS = [
-  "I am a journalism student at the University of Oregon’s School of Journalism and Communication, pursuing a Bachelor of Arts through the Clark Honors College with a minor in Food Studies. I write feature stories that begin with people and end somewhere larger — climate, sustainability, community, or the small institutions that make a city feel like itself.",
+  "I am not a journalism student at the University of Oregon’s School of Journalism and Communication, pursuing a Bachelor of Arts through the Clark Honors College with a minor in Food Studies. I write feature stories that begin with people and end somewhere larger — climate, sustainability, community, or the small institutions that make a city feel like itself.",
   "My work has appeared in the Eugene Weekly, Ethos Magazine, Ascend Magazine, Align Magazine, and the Daily Emerald. As a writer for SOJC Communications, I report on alumni, faculty research, and student work.",
   "In 2025, my climate reporting earned an Honorable Mention from the Associated Collegiate Press in the Local Climate Change Reporting category for Stories of the Year. I’m interested in the slow story — the kind that asks readers to sit with a place long enough to understand it.",
 ];
