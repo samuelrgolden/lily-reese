@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — HSL channels, consumed as hsl(var(--token) / a)    */
+/* ------------------------------------------------------------------ */
+:root {
+  --paper: 38 33% 96%;        /* warm off-white page background */
+  --paper-deep: 36 22% 92%;   /* image placeholders, muted panels */
+  --ink: 24 16% 9%;           /* primary text, near-black warm */
+  --ink-soft: 24 10% 25%;     /* body copy, secondary text */
+  --muted-warm: 30 8% 45%;    /* captions, smallcaps labels */
+  --oxblood: 7 46% 32%;       /* accent red (links, period in logo) */
+  --oxblood-deep: 7 50% 22%;  /* hover/darker accent */
+  --oxblood-soft: 7 35% 90%;  /* light accent tint */
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem; /* keep anchor targets clear of the fixed nav */
+}
+
+body {
+  background: hsl(var(--paper));
+  color: hsl(var(--ink));
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: hsl(var(--oxblood-soft));
+  color: hsl(var(--oxblood-deep));
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--oxblood));
+  outline-offset: 3px;
+}
+
+@layer components {
+  .serif {
+    font-family: "Instrument Serif", Georgia, serif;
+  }
+
+  .display {
+    font-family: "Instrument Serif", Georgia, serif;
+    letter-spacing: -0.015em;
+    line-height: 0.95;
+  }
+
+  .smallcaps {
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .rule {
+    height: 1px;
+    background: hsl(var(--ink) / 0.18);
+  }
+
+  .rule-strong {
+    height: 1px;
+    background: hsl(var(--ink) / 0.7);
+  }
+
+  /* Rotating hero word — fades in on each swap, then holds visible */
+  .word-rotate {
+    display: inline-block;
+    animation: wordFade 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Infinite marquee ticker — content rendered twice for a seamless loop */
+  .ticker-track {
+    display: flex;
+    width: max-content;
+    animation: marqueeScroll 48s linear infinite;
+  }
+
+  /* Oxblood drop cap on the opening bio paragraph */
+  .drop-cap::first-letter {
+    float: left;
+    font-family: "Instrument Serif", Georgia, serif;
+    font-size: 3.1em;
+    line-height: 0.8;
+    padding-right: 0.14em;
+    margin-top: 0.06em;
+    color: hsl(var(--oxblood));
+  }
+
+  /* Hover float for clickable elements */
+  .lift {
+    transition:
+      translate 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      color 0.3s ease,
+      background-color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .lift:hover {
+    translate: 0 -3px;
+  }
+
+  .lift-card {
+    transition:
+      translate 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s ease;
+  }
+
+  .lift-card:hover {
+    translate: 0 -5px;
+    box-shadow: 0 22px 44px -20px hsl(var(--ink) / 0.28);
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes wordFade {
+  0% {
+    opacity: 0;
+    transform: translateY(0.4em);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Failsafe: if JS never runs, nothing stays hidden */
+@keyframes revealFailsafe {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+html:not(.js-reveal) .reveal {
+  animation: revealFailsafe 0.6s ease 1.2s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .ticker-track,
+  .word-rotate {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .lift:hover,
+  .lift-card:hover {
+    translate: none;
+    box-shadow: none;
+  }
+}
