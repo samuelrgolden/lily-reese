@@ -21,7 +21,7 @@ const ROLES = [
     range: "Nov 2025 – Present",
     now: true,
     bullets: [
-      "Write and edit feature stories highlighting student athletes.",
+      "Write and edit feature stories highlighting athletes.",
       "Conduct interviews, research, and fact-checking to ensure depth and accuracy.",
       "Collaborate on pitches, narrative refinement, and multimedia for print and digital.",
       "Hold editorial leadership responsibilities and mentor other writers.",
@@ -65,15 +65,14 @@ const ROLES = [
   },
   {
     year: "2023",
-    role: "Writer, Copy Editor & Director",
+    role: "Writer",
     org: "Align Magazine",
     location: "Eugene, OR",
-    range: "Sep 2023 – Present",
-    now: true,
+    range: "Sep 2023 – Nov 2025",
+    now: false,
     bullets: [
       "Contributed opinion-driven pieces on fashion, culture, and the arts.",
-      "Developed original pitches and crafted narratives for a term-by-term publication.",
-      "Progressed from writer and copy editor to director, helping guide the magazine’s creative vision.",
+      "Developed original pitches and crafted narratives for a term-by-term publication."
     ],
   },
 ];
