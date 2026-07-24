@@ -10,7 +10,7 @@ const FACTS = [
 
 const PARAGRAPHS = [
   "Hi I'm Lily Reese, a journalism major at the University of Oregon with a minor in Food Studies, pursuing my BA through the Clark Honors College. My work explores the connections between people, place, and sustainability — through food, art, sport, and community — approaching journalism as a way to understand how individuals and systems shape one another.",
-  "I report for the Eugene Weekly, serve as editorial lead, copy editor, and writer for Ascend Magazine, direct Align Magazine, and cover alumni profiles, faculty research, and cultural stories as a writing intern for the SOJC. My work has also appeared in Ethos Magazine and the Daily Emerald, where I spent a year on the copy desk.",
+  "I report for the Eugene Weekly, serve as editorial lead, copy editor, and director for Ascend Magazine, writer for Align Magazine, and cover alumni profiles, faculty research, and cultural stories as a writing intern for the SOJC. My work has also appeared in Ethos Magazine and the Daily Emerald, where I spent a year on the copy desk.",
   "From community gardens rooted in sustainability, to theater companies redefining performance as connection, to small towns confronting air-quality challenges my reporting continues to grow. Across these stories, I’m drawn to what brings people together — and I believe journalism should do more than inform: it should invite reflection, foster empathy, and strengthen the bonds that tie us to one another.",
 ];
 

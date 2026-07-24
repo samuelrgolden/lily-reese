@@ -67,16 +67,16 @@ function RotatingWord() {
 export default function Hero() {
   return (
     <section className="flex min-h-[100svh] flex-col pb-5 pt-24 md:pt-28">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-12">
-        {/* Masthead bar */}
-        <div className="rule-strong" />
-        <div className="smallcaps flex items-center justify-between gap-4 py-3 text-[hsl(var(--muted-warm))]">
-          <span className="text-[hsl(var(--ink))]">The Lily Reese · Vol. 01</span>
-          <span className="hidden md:block">Edition I · Portfolio</span>
-          <span>Eugene, Oregon</span>
-        </div>
-        <div className="rule" />
+      {/* Masthead bar — full-bleed rules; outer labels pushed to the page corners, center label stays put */}
+      <div className="rule-strong" />
+      <div className="smallcaps flex w-full items-center justify-between gap-4 px-6 py-3 text-[hsl(var(--muted-warm))] md:px-6">
+        <span className="text-[hsl(var(--ink))]">The Lily Reese · Vol. 01</span>
+        <span className="hidden md:block">Edition I · Portfolio</span>
+        <span>Eugene, Oregon</span>
+      </div>
+      <div className="rule" />
 
+      <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
         <div className="grid grid-cols-12 gap-x-6 gap-y-10 py-10 md:gap-x-10 md:py-12">
           {/* Left: masthead heading */}
           <div className="col-span-12 md:col-span-8">
