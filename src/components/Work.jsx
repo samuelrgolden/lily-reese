@@ -3,7 +3,10 @@ import Reveal from "./Reveal.jsx";
 
 /* Ordered for collage rhythm: landscape and portrait images alternate.
    To add a piece, drop it into the stream matching its image's orientation —
-   landscapes sit on the even slots, portraits on the odd ones. */
+   landscapes sit on the even slots, portraits on the odd ones.
+
+   `size` is the image's [width, height] in pixels — the compression script
+   prints it. It stops the cards jumping around while the photos load. */
 const ARTICLES = [
   {
     title: "What’s in a Nickname?",
@@ -14,6 +17,7 @@ const ARTICLES = [
       "“Beccofino” means picky eater — the childhood nickname Maurizio Bianchi now paints on a red food truck serving handmade seasonal pasta.",
     href: "https://eugeneweekly.com/2026/07/23/whats-in-a-nickname-2/",
     img: "/work/beccofino.webp",
+    size: [1200, 779],
   },
   {
     title: "The Comeback Run",
@@ -23,6 +27,7 @@ const ARTICLES = [
     description: "An athlete’s long road back to the start gate, from Ascend’s second print issue.",
     href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2/66",
     img: "/work/comeback-run.webp",
+    size: [1000, 1273],
   },
   {
     title: "More Than Breakfast",
@@ -33,6 +38,7 @@ const ARTICLES = [
       "Elizabeth Fagan and Koa Rodby built Only Yolking into a Eugene fixture one messy egg-in-the-hole sandwich at a time.",
     href: "https://eugeneweekly.com/2026/07/23/more-than-breakfast/",
     img: "/work/morethanbreakfast.webp",
+    size: [1200, 779],
   },
   {
     title: "From the Press Box",
@@ -42,6 +48,7 @@ const ARTICLES = [
     description: "Copy editor Lily Reese explores the world of sports through her love of music and journalism.",
     href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2/150",
     img: "/work/press-box.webp",
+    size: [1000, 1312],
   },
   {
     title: "Fair Warning: Come Hungry",
@@ -52,6 +59,7 @@ const ARTICLES = [
       "A first-timer’s tour of the Oregon Country Fair’s legendary food booths, from Phoenix Rising Bakery to the elixir bar.",
     href: "https://eugeneweekly.com/2026/07/09/fair-warning-come-hungry/",
     img: "/work/fair-warning.webp",
+    size: [1200, 779],
   },
   {
     title: "Containing Female Rage",
@@ -61,6 +69,7 @@ const ARTICLES = [
     description: "A cultural examination of how women’s anger gets shaped, suppressed, and expressed.",
     href: "https://dailyemerald.com/185012/ethos/containing-female-rage/",
     img: "/work/containing-female-rage.webp",
+    size: [800, 1200],
   },
   {
     title: "Strategic Communication Master’s Students Win National PR Case Study Award",
@@ -71,6 +80,7 @@ const ARTICLES = [
       "Three strategic communication master’s students take first place in a national PR case study competition.",
     href: "https://journalism.uoregon.edu/news/2026-page-society-pr-case-study",
     img: "/work/page-society.webp",
+    size: [768, 433],
   },
   {
     title: "Ascend Magazine, Issue 2",
@@ -80,6 +90,7 @@ const ARTICLES = [
     description: "The complete second print issue, cover to cover — the climb never ends.",
     href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2",
     img: "/work/ascend-issue-2.webp",
+    size: [1000, 1273],
   },
   {
     title: "Cottage Grove to Host First Ever Community Pride Picnic",
@@ -90,6 +101,7 @@ const ARTICLES = [
       "South Lane County Pride brings drag, live music, and family fun to Cottage Grove’s first community Pride celebration.",
     href: "https://eugeneweekly.com/2026/06/25/cottage-grove-to-host-first-ever-community-pride-picnic/",
     img: "/work/pride-picnic.webp",
+    size: [1200, 779],
   },
   {
     title: "75,000 Lane County Residents Rely on Food Benefits, and Many Face a Cutoff This April",
@@ -101,6 +113,7 @@ const ARTICLES = [
       "As expanded federal work requirements take hold, tens of thousands of Lane County SNAP recipients face losing their food benefits.",
     href: "https://lilylreese.wixsite.com/lily-reese-portfol-1/copy-of-new-page",
     img: "/work/food-benefits.webp",
+    size: [440, 780],
   },
   {
     title: "Audio magazine class gives voice to Oakridge residents",
@@ -110,6 +123,7 @@ const ARTICLES = [
     description: "Journalism students record an audio portrait of small-town life in Oakridge, Oregon.",
     href: "https://news.uoregon.edu/audio-magazine-class-gives-voice-oakridge-residents",
     img: "/work/oakridge-audio.webp",
+    size: [900, 506],
   },
   {
     title: "Are We All Victims of the Madonna–Whore Complex?",
@@ -119,6 +133,7 @@ const ARTICLES = [
     description: "A reported essay on a centuries-old binary that still shapes how women are seen.",
     href: "https://dailyemerald.com/185014/features/are-we-all-victims-of-the-madonna-whore-complex/",
     img: "/work/madonna-whore.webp",
+    size: [800, 1200],
   },
   {
     title: "Oakridge through the eyes and ears of a journalism team from the U of O",
@@ -130,6 +145,7 @@ const ARTICLES = [
       "Oakridge’s hometown paper on the UO audio team — Lily among its reporters — that spent a term telling the town’s stories.",
     href: "https://highway58herald.org/oakridge-through-the-eyes-and-ears-of-a-journalism-team-from-the-u-of-o/",
     img: "/work/oakridge-herald.webp",
+    size: [1000, 434],
   },
   {
     title: "Sensitivity and Climate Disaster Conversations",
@@ -139,6 +155,7 @@ const ARTICLES = [
     description: "On the language we use for climate grief, and the cost of getting it wrong.",
     href: "https://dailyemerald.com/184995/features/sensitivity-and-climate-disaster-conversations/",
     img: "/work/climate-conversations.webp",
+    size: [960, 1200],
   },
   {
     title: "Plenty of Food, Not Enough Meals",
@@ -150,6 +167,7 @@ const ARTICLES = [
       "Oregon’s food network moves millions of pounds of groceries a year — but for unhoused people, infrastructure, not supply, decides whether food becomes a meal.",
     href: "https://lilylreese.wixsite.com/lily-reese-portfol-1/final",
     img: "/work/plenty-of-food.webp",
+    size: [686, 532],
   },
   {
     title: "Master’s Student Builds Diversity into Lego Campaign",
@@ -160,6 +178,7 @@ const ARTICLES = [
       "How Hana Mazur turned her own adoption story into “Bricks of Belonging,” a Lego campaign celebrating diverse families.",
     href: "https://journalism.uoregon.edu/news/hana-mazur-corporate-social-responsibility",
     img: "/work/lego-campaign.webp",
+    size: [1200, 1276],
   },
   {
     title: "The Sustainability Dilemma at the Heart of Community Living",
@@ -170,6 +189,7 @@ const ARTICLES = [
       "Inside Lost Valley, an intentional community grappling with what it really costs to live sustainably.",
     href: "https://dailyemerald.com/185072/features/the-sustainability-dilemma-at-the-heart-of-community-living/",
     img: "/work/sustainability-dilemma.webp",
+    size: [1200, 800],
   },
   {
     title: "The Partnerships Keeping Eugene’s Theater Alive",
@@ -179,6 +199,7 @@ const ARTICLES = [
     description: "How a network of small companies and stubborn artists keep live performance going.",
     href: "https://dailyemerald.com/185015/features/the-partnerships-keeping-eugenes-theater-alive/",
     img: "/work/eugene-theater.webp",
+    size: [1200, 900],
   },
   {
     title: "Johani Askin’s Journey & Psychedelic Facilitation Through Cultural Connection",
@@ -190,6 +211,7 @@ const ARTICLES = [
       "Inside EPIC Healing Eugene with a licensed psilocybin facilitator who guides clients under Oregon’s Measure 109.",
     href: "https://lilylreese.wixsite.com/lily-reese-portfol-1/copy-of-public-meeting",
     img: "/work/askins-profile.webp",
+    size: [1000, 489],
   },
   {
     title: "Growing the Grove Garden: The Need for Intentional Communities",
@@ -199,6 +221,7 @@ const ARTICLES = [
     description: "A community garden in Eugene becomes a study in what shared land can teach.",
     href: "https://dailyemerald.com/184070/features/growing-the-grove-garden-the-need-for-intentional-communities/",
     img: "/work/grove-garden.webp",
+    size: [1080, 720],
   },
   {
     title: "Embracing Change: Exploring Alternative Psilocybin Treatments in Eugene",
@@ -208,6 +231,7 @@ const ARTICLES = [
     description: "Inside Oregon’s first legal psilocybin services, where ritual and regulation meet.",
     href: "https://dailyemerald.com/184064/ethos/embracing-change-exploring-alternative-psilocybin-treatments-in-eugene/",
     img: "/work/psilocybin.webp",
+    size: [1080, 720],
   },
 ];
 
@@ -215,6 +239,11 @@ const ARTICLES = [
 const FILTERS = ["All", "Eugene Weekly", "SOJC", "Ascend Magazine", "Ethos Magazine", "Class Work"];
 
 function ArticleCard({ article, index }) {
+  /* Passing the image's real pixel size lets the browser reserve the card's
+     full height on first paint. Without it the collage re-balances as each
+     photo arrives and cards visibly jump between columns. */
+  const [imgW, imgH] = article.size ?? [];
+
   return (
     <Reveal as="article" delay={(index % 3) * 70} className="mb-8 break-inside-avoid md:mb-10">
       <a
@@ -225,7 +254,14 @@ function ArticleCard({ article, index }) {
       >
         <div className="relative overflow-hidden rounded-lg bg-[hsl(var(--paper-deep))]">
           {/* Natural aspect ratio — the collage columns absorb the height differences */}
-          <img src={article.img} alt={article.title} loading="lazy" className="block h-auto w-full" />
+          <img
+            src={article.img}
+            alt={article.title}
+            width={imgW}
+            height={imgH}
+            loading="lazy"
+            className="block h-auto w-full"
+          />
           <span className="smallcaps absolute left-3 top-3 rounded-sm border border-[hsl(var(--ink)/0.15)] bg-[hsl(var(--paper))] px-2.5 py-1 text-[0.55rem]">
             {article.tags[0]}
           </span>
