@@ -17,6 +17,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5.5rem; /* keep anchor targets clear of the fixed nav */
+  /* 16px root at 1536px viewport, 24px at 2560px. Unchanged below 1536px. */
+  font-size: clamp(1rem, 0.25rem + 0.78125vw, 1.5rem);
 }
 
 body {
@@ -156,6 +158,14 @@ body {
 
 html:not(.js-reveal) .reveal {
   animation: revealFailsafe 0.6s ease 1.2s forwards;
+}
+
+/* The root font scales above 1536px, so the ticker track widens and would
+   otherwise cover more distance in the same 48s. Lengthen the loop to match. */
+@media (min-width: 1536px) {
+  .ticker-track {
+    animation-duration: 72s;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

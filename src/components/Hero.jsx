@@ -17,12 +17,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "Fair Warning: Come Hungry",
+  title: "What’s in a Nickname?",
   pub: "Eugene Weekly",
-  date: "July 9, 2026",
+  date: "July 23, 2026",
   tag: "Food",
-  img: "/work/fair-warning.webp",
-  href: "https://eugeneweekly.com/2026/07/09/fair-warning-come-hungry/",
+  img: "/work/beccofino.webp",
+  href: "https://eugeneweekly.com/2026/07/23/whats-in-a-nickname-2/",
 };
 
 function ArrowUpRight({ className = "" }) {
@@ -33,7 +33,7 @@ function ArrowUpRight({ className = "" }) {
       stroke="currentColor"
       strokeWidth="1.75"
       strokeLinecap="square"
-      className={`h-[15px] w-[15px] ${className}`}
+      className={`h-[0.9375rem] w-[0.9375rem] ${className}`}
       aria-hidden="true"
     >
       <path d="M7 17 17 7M7 7h10v10" />
@@ -76,7 +76,7 @@ export default function Hero() {
       </div>
       <div className="rule" />
 
-      <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
+      <div className="mx-auto w-full max-w-[90rem] px-6 md:px-12">
         <div className="grid grid-cols-12 gap-x-6 gap-y-10 py-10 md:gap-x-10 md:py-12">
           {/* Left: masthead heading */}
           <div className="col-span-12 md:col-span-8">

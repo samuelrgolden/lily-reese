@@ -25,7 +25,7 @@ export default function Nav() {
           : "border-b border-transparent bg-transparent"
       }`}
     >
-      <div className="mx-auto flex h-16 md:px-4 items-center justify-between gap-6 px-6">
+      <div className="mx-auto flex h-16 md:px-6 items-center justify-between gap-6 px-6">
         <a href="#top" className="serif lift inline-block text-2xl leading-none">
           Lily<span className="text-[hsl(var(--oxblood))]">.</span>
         </a>

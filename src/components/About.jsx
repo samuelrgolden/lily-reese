@@ -17,7 +17,7 @@ const PARAGRAPHS = [
 export default function About() {
   return (
     <section id="about" className="py-14 md:py-16">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-12">
+      <div className="mx-auto max-w-[90rem] px-6 md:px-12">
         <div className="grid grid-cols-12 gap-x-6 gap-y-12 md:gap-x-10">
           {/* Section label + facts */}
           <div className="col-span-12 md:col-span-3">
@@ -41,11 +41,11 @@ export default function About() {
 
           {/* Portrait */}
           <Reveal as="figure" delay={100} className="col-span-12 flex h-full flex-col md:col-span-4">
-            <div className="min-h-[480px] flex-1 overflow-hidden bg-[hsl(var(--paper-deep))]">
+            <div className="min-h-[30rem] flex-1 overflow-hidden bg-[hsl(var(--paper-deep))]">
               <img
                 src="/lily-portrait.webp"
                 alt="Black-and-white studio portrait of Lily Reese"
-                className="h-full min-h-[480px] w-full object-cover"
+                className="h-full min-h-[30rem] w-full object-cover"
                 loading="lazy"
               />
             </div>

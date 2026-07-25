@@ -70,7 +70,7 @@ const CONTACTS = [
 export default function Contact() {
   return (
     <section id="contact" className="pt-10 md:pt-12">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-12">
+      <div className="mx-auto max-w-[90rem] px-6 md:px-12">
         <div className="rule-strong" />
 
         <div className="grid grid-cols-12 gap-x-6 gap-y-10 py-10 md:gap-x-10 md:py-12">
@@ -112,7 +112,7 @@ export default function Contact() {
                       {...(contact.external ? { target: "_blank", rel: "noreferrer" } : {})}
                       className="group lift grid grid-cols-[auto_1fr_auto] items-center gap-x-5 border-t border-[hsl(var(--ink)/0.18)] py-3.5"
                     >
-                      <contact.Icon className="h-[17px] w-[17px] text-[hsl(var(--oxblood))]" />
+                      <contact.Icon className="h-[1.0625rem] w-[1.0625rem] text-[hsl(var(--oxblood))]" />
                       <span>
                         <span className="smallcaps block text-[0.65rem] text-[hsl(var(--muted-warm))]">
                           {contact.label}

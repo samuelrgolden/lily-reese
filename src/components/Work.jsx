@@ -1,8 +1,48 @@
 import { useState } from "react";
 import Reveal from "./Reveal.jsx";
 
-/* Ordered for collage rhythm: landscape and portrait images alternate */
+/* Ordered for collage rhythm: landscape and portrait images alternate.
+   To add a piece, drop it into the stream matching its image's orientation —
+   landscapes sit on the even slots, portraits on the odd ones. */
 const ARTICLES = [
+  {
+    title: "What’s in a Nickname?",
+    pub: "Eugene Weekly",
+    date: "Jul 23, 2026",
+    tags: ["Food", "Profiles"],
+    description:
+      "“Beccofino” means picky eater — the childhood nickname Maurizio Bianchi now paints on a red food truck serving handmade seasonal pasta.",
+    href: "https://eugeneweekly.com/2026/07/23/whats-in-a-nickname-2/",
+    img: "/work/beccofino.webp",
+  },
+  {
+    title: "The Comeback Run",
+    pub: "Ascend Magazine",
+    date: "May 19, 2026",
+    tags: ["Sports", "Features"],
+    description: "An athlete’s long road back to the start gate, from Ascend’s second print issue.",
+    href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2/66",
+    img: "/work/comeback-run.webp",
+  },
+  {
+    title: "More Than Breakfast",
+    pub: "Eugene Weekly",
+    date: "Jul 23, 2026",
+    tags: ["Food", "Community"],
+    description:
+      "Elizabeth Fagan and Koa Rodby built Only Yolking into a Eugene fixture one messy egg-in-the-hole sandwich at a time.",
+    href: "https://eugeneweekly.com/2026/07/23/more-than-breakfast/",
+    img: "/work/morethanbreakfast.webp",
+  },
+  {
+    title: "From the Press Box",
+    pub: "Ascend Magazine",
+    date: "May 19, 2026",
+    tags: ["Sports", "Essay"],
+    description: "Copy editor Lily Reese explores the world of sports through her love of music and journalism.",
+    href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2/150",
+    img: "/work/press-box.webp",
+  },
   {
     title: "Fair Warning: Come Hungry",
     pub: "Eugene Weekly",
@@ -14,13 +54,13 @@ const ARTICLES = [
     img: "/work/fair-warning.webp",
   },
   {
-    title: "The Comeback Run",
-    pub: "Ascend Magazine",
-    date: "May 19, 2026",
-    tags: ["Sports", "Features"],
-    description: "An athlete’s long road back to the start gate, from Ascend’s second print issue.",
-    href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2/66",
-    img: "/work/comeback-run.webp",
+    title: "Containing Female Rage",
+    pub: "Ethos Magazine",
+    date: "May 12, 2025",
+    tags: ["Culture", "Essay"],
+    description: "A cultural examination of how women’s anger gets shaped, suppressed, and expressed.",
+    href: "https://dailyemerald.com/185012/ethos/containing-female-rage/",
+    img: "/work/containing-female-rage.webp",
   },
   {
     title: "Strategic Communication Master’s Students Win National PR Case Study Award",
@@ -33,13 +73,13 @@ const ARTICLES = [
     img: "/work/page-society.webp",
   },
   {
-    title: "From the Press Box",
+    title: "Ascend Magazine, Issue 2",
     pub: "Ascend Magazine",
     date: "May 19, 2026",
-    tags: ["Sports", "Essay"],
-    description: "Copy editor Lily Reese explores the world of sports through her love of music and journalism.",
-    href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2/150",
-    img: "/work/press-box.webp",
+    tags: ["Print", "Sports"],
+    description: "The complete second print issue, cover to cover — the climb never ends.",
+    href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2",
+    img: "/work/ascend-issue-2.webp",
   },
   {
     title: "Cottage Grove to Host First Ever Community Pride Picnic",
@@ -50,44 +90,6 @@ const ARTICLES = [
       "South Lane County Pride brings drag, live music, and family fun to Cottage Grove’s first community Pride celebration.",
     href: "https://eugeneweekly.com/2026/06/25/cottage-grove-to-host-first-ever-community-pride-picnic/",
     img: "/work/pride-picnic.webp",
-  },
-  {
-    title: "Containing Female Rage",
-    pub: "Ethos Magazine",
-    date: "May 12, 2025",
-    tags: ["Culture", "Essay"],
-    description: "A cultural examination of how women’s anger gets shaped, suppressed, and expressed.",
-    href: "https://dailyemerald.com/185012/ethos/containing-female-rage/",
-    img: "/work/containing-female-rage.webp",
-  },
-  {
-    title: "Audio magazine class gives voice to Oakridge residents",
-    pub: "SOJC",
-    date: "Apr 3, 2026",
-    tags: ["Audio", "Community"],
-    description: "Journalism students record an audio portrait of small-town life in Oakridge, Oregon.",
-    href: "https://news.uoregon.edu/audio-magazine-class-gives-voice-oakridge-residents",
-    img: "/work/oakridge-audio.webp",
-  },
-  {
-    title: "Ascend Magazine, Issue 2",
-    pub: "Ascend Magazine",
-    date: "May 19, 2026",
-    tags: ["Print", "Sports"],
-    description: "The complete second print issue, cover to cover — the climb never ends.",
-    href: "https://issuu.com/ascenduomagazine/docs/ascend_issue_2",
-    img: "/work/ascend-issue-2.webp",
-  },
-  {
-    title: "Oakridge through the eyes and ears of a journalism team from the U of O",
-    pub: "Highway 58 Herald",
-    date: "Jun 26, 2025",
-    tags: ["Audio", "Community"],
-    kind: "class",
-    description:
-      "Oakridge’s hometown paper on the UO audio team — Lily among its reporters — that spent a term telling the town’s stories.",
-    href: "https://highway58herald.org/oakridge-through-the-eyes-and-ears-of-a-journalism-team-from-the-u-of-o/",
-    img: "/work/oakridge-herald.webp",
   },
   {
     title: "75,000 Lane County Residents Rely on Food Benefits, and Many Face a Cutoff This April",
@@ -101,6 +103,44 @@ const ARTICLES = [
     img: "/work/food-benefits.webp",
   },
   {
+    title: "Audio magazine class gives voice to Oakridge residents",
+    pub: "SOJC",
+    date: "Apr 3, 2026",
+    tags: ["Audio", "Community"],
+    description: "Journalism students record an audio portrait of small-town life in Oakridge, Oregon.",
+    href: "https://news.uoregon.edu/audio-magazine-class-gives-voice-oakridge-residents",
+    img: "/work/oakridge-audio.webp",
+  },
+  {
+    title: "Are We All Victims of the Madonna–Whore Complex?",
+    pub: "Ethos Magazine",
+    date: "May 12, 2025",
+    tags: ["Culture", "Features"],
+    description: "A reported essay on a centuries-old binary that still shapes how women are seen.",
+    href: "https://dailyemerald.com/185014/features/are-we-all-victims-of-the-madonna-whore-complex/",
+    img: "/work/madonna-whore.webp",
+  },
+  {
+    title: "Oakridge through the eyes and ears of a journalism team from the U of O",
+    pub: "Highway 58 Herald",
+    date: "Jun 26, 2025",
+    tags: ["Audio", "Community"],
+    kind: "class",
+    description:
+      "Oakridge’s hometown paper on the UO audio team — Lily among its reporters — that spent a term telling the town’s stories.",
+    href: "https://highway58herald.org/oakridge-through-the-eyes-and-ears-of-a-journalism-team-from-the-u-of-o/",
+    img: "/work/oakridge-herald.webp",
+  },
+  {
+    title: "Sensitivity and Climate Disaster Conversations",
+    pub: "Ethos Magazine",
+    date: "Jan 12, 2025",
+    tags: ["Climate", "Features"],
+    description: "On the language we use for climate grief, and the cost of getting it wrong.",
+    href: "https://dailyemerald.com/184995/features/sensitivity-and-climate-disaster-conversations/",
+    img: "/work/climate-conversations.webp",
+  },
+  {
     title: "Plenty of Food, Not Enough Meals",
     pub: "JCOM 332",
     date: "Public Affairs Final",
@@ -112,13 +152,14 @@ const ARTICLES = [
     img: "/work/plenty-of-food.webp",
   },
   {
-    title: "Are We All Victims of the Madonna–Whore Complex?",
-    pub: "Ethos Magazine",
-    date: "May 12, 2025",
-    tags: ["Culture", "Features"],
-    description: "A reported essay on a centuries-old binary that still shapes how women are seen.",
-    href: "https://dailyemerald.com/185014/features/are-we-all-victims-of-the-madonna-whore-complex/",
-    img: "/work/madonna-whore.webp",
+    title: "Master’s Student Builds Diversity into Lego Campaign",
+    pub: "SOJC",
+    date: "May 11, 2026",
+    tags: ["Profiles", "Campus"],
+    description:
+      "How Hana Mazur turned her own adoption story into “Bricks of Belonging,” a Lego campaign celebrating diverse families.",
+    href: "https://journalism.uoregon.edu/news/hana-mazur-corporate-social-responsibility",
+    img: "/work/lego-campaign.webp",
   },
   {
     title: "The Sustainability Dilemma at the Heart of Community Living",
@@ -131,15 +172,6 @@ const ARTICLES = [
     img: "/work/sustainability-dilemma.webp",
   },
   {
-    title: "Sensitivity and Climate Disaster Conversations",
-    pub: "Ethos Magazine",
-    date: "Jan 12, 2025",
-    tags: ["Climate", "Features"],
-    description: "On the language we use for climate grief, and the cost of getting it wrong.",
-    href: "https://dailyemerald.com/184995/features/sensitivity-and-climate-disaster-conversations/",
-    img: "/work/climate-conversations.webp",
-  },
-  {
     title: "The Partnerships Keeping Eugene’s Theater Alive",
     pub: "Ethos Magazine",
     date: "May 12, 2025",
@@ -147,16 +179,6 @@ const ARTICLES = [
     description: "How a network of small companies and stubborn artists keep live performance going.",
     href: "https://dailyemerald.com/185015/features/the-partnerships-keeping-eugenes-theater-alive/",
     img: "/work/eugene-theater.webp",
-  },
-  {
-    title: "Master’s Student Builds Diversity into Lego Campaign",
-    pub: "SOJC",
-    date: "May 11, 2026",
-    tags: ["Profiles", "Campus"],
-    description:
-      "How Hana Mazur turned her own adoption story into “Bricks of Belonging,” a Lego campaign celebrating diverse families.",
-    href: "https://journalism.uoregon.edu/news/hana-mazur-corporate-social-responsibility",
-    img: "/work/lego-campaign.webp",
   },
   {
     title: "Johani Askin’s Journey & Psychedelic Facilitation Through Cultural Connection",
@@ -253,7 +275,7 @@ export default function Work() {
 
   return (
     <section id="work" className="py-14 md:py-16">
-      <div className="mx-auto max-w-[1440px] px-6 md:px-12">
+      <div className="mx-auto max-w-[90rem] px-6 md:px-12">
         <Reveal>
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
             <div>
