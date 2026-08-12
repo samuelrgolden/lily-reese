@@ -1,49 +1,15 @@
-import { useEffect, useRef } from "react";
+import useInView from "./useInView.js";
 
 /**
- * Scroll-reveal wrapper: renders with the `reveal` class and adds `in`
- * when the element enters the viewport (or is already above it, so instant
- * jumps like anchor deep-links never leave gaps).
+ * Scroll-reveal wrapper: renders with the `reveal` class and picks up `in`
+ * when it scrolls into view. Fade + rise.
  *
- * IntersectionObserver is the primary trigger; a passive scroll/resize
- * check covers environments where observer callbacks are throttled.
+ * For the display headings use CutReveal instead — a per-character cut reads
+ * better on type that large, and the two must not be nested or this fade
+ * muddies the cut.
  */
 export default function Reveal({ as: Tag = "div", className = "", delay = 0, children, ...rest }) {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-
-    let io;
-    const cleanup = () => {
-      io?.disconnect();
-      window.removeEventListener("scroll", check);
-      window.removeEventListener("resize", check);
-    };
-    const show = () => {
-      el.classList.add("in");
-      cleanup();
-    };
-    function check() {
-      // Some embedded webviews report innerHeight 0 — fall back sensibly.
-      const vh = window.innerHeight || document.documentElement.clientHeight || 900;
-      if (el.getBoundingClientRect().top < vh * 0.92) show();
-    }
-
-    if ("IntersectionObserver" in window) {
-      io = new IntersectionObserver(
-        (entries) => entries.forEach((entry) => entry.isIntersecting && show()),
-        { threshold: 0.12, rootMargin: "9999px 0px -8% 0px" }
-      );
-      io.observe(el);
-    }
-    window.addEventListener("scroll", check, { passive: true });
-    window.addEventListener("resize", check, { passive: true });
-    check();
-
-    return cleanup;
-  }, []);
+  const ref = useInView();
 
   return (
     <Tag

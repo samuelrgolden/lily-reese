@@ -1,4 +1,5 @@
 import Reveal from "./Reveal.jsx";
+import CutReveal from "./CutReveal.jsx";
 
 function MailIcon(props) {
   return (
@@ -93,14 +94,19 @@ export default function Contact() {
           <div className="col-span-12 md:col-span-8">
             <Reveal>
               <p className="smallcaps text-[hsl(var(--muted-warm))]">Section V — Colophon</p>
-              <h2 className="display mt-3 text-[2.8rem] md:text-[3.8rem]">
-                Tell me a<br />
+            </Reveal>
+            {/* One mask per line, staggered — "story." is the payoff word, so it
+                gets its own beat rather than arriving with the setup. */}
+            <h2 className="display mt-3 text-[2.8rem] md:text-[3.8rem]">
+              <CutReveal delay={90}>Tell me a</CutReveal>
+              <br />
+              <CutReveal delay={220}>
                 <span className="italic text-[hsl(var(--oxblood))]">story.</span>
-              </h2>
-              <p className="serif mt-4 max-w-lg text-lg italic leading-relaxed text-[hsl(var(--ink-soft))] md:text-xl">
-                I’m open to pitches, edits, coffees in Eugene, or quiet introductions to people whose stories
-                deserve telling.
-              </p>
+              </CutReveal>
+            </h2>
+            <Reveal as="p" delay={300} className="serif mt-4 max-w-lg text-lg italic leading-relaxed text-[hsl(var(--ink-soft))] md:text-xl">
+              I’m open to pitches, edits, coffees in Eugene, or quiet introductions to people whose stories
+              deserve telling.
             </Reveal>
 
             <Reveal delay={140}>
@@ -117,7 +123,10 @@ export default function Contact() {
                         <span className="smallcaps block text-[0.65rem] text-[hsl(var(--muted-warm))]">
                           {contact.label}
                         </span>
-                        <span className="serif mt-0.5 block text-lg transition-colors duration-300 group-hover:text-[hsl(var(--oxblood))] md:text-xl">
+                        {/* inline-block, not block — the wipe's ::after spans
+                            the element box, and a block one would run the full
+                            row width instead of the length of the address. */}
+                        <span className="serif link-wipe mt-0.5 inline-block text-lg transition-colors duration-300 group-hover:text-[hsl(var(--oxblood))] md:text-xl">
                           {contact.value}
                         </span>
                       </span>

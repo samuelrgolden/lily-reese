@@ -1,4 +1,5 @@
 import Reveal from "./Reveal.jsx";
+import CutReveal from "./CutReveal.jsx";
 
 const ROLES = [
   {
@@ -83,32 +84,6 @@ const STATS = [
   ["Editing", "Ascend · Align"],
 ];
 
-const HONORS = [
-  { year: "2025", title: "Lorry I. Lokey Journalism Scholarship", org: "School of Journalism and Communication" },
-  { year: "2024", title: "Arlyn Cole Scholarship", org: "School of Journalism and Communication" },
-  { year: "2024", title: "SOJC Scholarship", org: "University of Oregon" },
-  { year: "2023", title: "Sumit Scholarship", org: "Redwood High School" },
-  { year: "2023–2025", title: "Dean’s List", org: "University of Oregon" },
-];
-
-function RibbonIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="h-6 w-6 text-[hsl(var(--oxblood))]"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="8" r="6" />
-      <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11" />
-    </svg>
-  );
-}
-
 function TimelineEntry({ entry, showYear }) {
   return (
     <Reveal
@@ -161,14 +136,17 @@ export default function Experience() {
       <div className="mx-auto max-w-[90rem] px-6 md:px-12">
         <Reveal>
           <p className="smallcaps text-[hsl(var(--muted-warm))]">Section III</p>
-          <div className="mt-3 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-            <h2 className="display text-[2.9rem] md:text-[4.2rem]">Experience</h2>
-            <p className="serif max-w-md text-lg text-[hsl(var(--ink-soft))] md:text-right">
-              A vertical record — newest at the top, oldest at the foot of the page.
-            </p>
-          </div>
-          <div className="rule mt-8" />
         </Reveal>
+        <div className="mt-3 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          {/* Outside the Reveal — the mask carries this one, not a fade */}
+          <h2 className="display text-[2.9rem] md:text-[4.2rem]">
+            <CutReveal delay={90}>Experience</CutReveal>
+          </h2>
+          <Reveal as="p" delay={170} className="serif max-w-md text-lg text-[hsl(var(--ink-soft))] md:text-right">
+            A vertical record — newest at the top, oldest at the foot of the page.
+          </Reveal>
+        </div>
+        <Reveal delay={230} className="rule mt-8" />
 
         <div className="mt-12 grid grid-cols-12 gap-x-6 gap-y-12 md:gap-x-10">
           {/* Timeline */}
@@ -202,15 +180,19 @@ export default function Experience() {
                     loading="lazy"
                   />
                 </div>
+                {/* --scrim / --on-scrim rather than --ink / --paper: those two
+                    flip with the theme, which would turn this into a cream veil
+                    under near-black type the moment dark mode is on. A scrim
+                    over a photograph has to stay dark in both. */}
                 <figcaption
                   className="absolute inset-x-0 bottom-0 p-4 pt-12"
                   style={{
                     backgroundImage:
-                      "linear-gradient(to top, hsl(var(--ink) / 0.72), hsl(var(--ink) / 0.3) 55%, transparent)",
+                      "linear-gradient(to top, hsl(var(--scrim) / 0.72), hsl(var(--scrim) / 0.3) 55%, transparent)",
                   }}
                 >
-                  <span className="smallcaps block text-[hsl(var(--paper))]">On Assignment</span>
-                  <span className="serif mt-0.5 block text-lg italic text-[hsl(var(--paper))]">
+                  <span className="smallcaps block text-[hsl(var(--on-scrim))]">On Assignment</span>
+                  <span className="serif mt-0.5 block text-lg italic text-[hsl(var(--on-scrim))]">
                     Autzen Stadium, Eugene
                   </span>
                 </figcaption>
@@ -230,40 +212,6 @@ export default function Experience() {
                   </div>
                 ))}
               </dl>
-            </Reveal>
-          </div>
-        </div>
-
-        {/* Honors & Recognition */}
-        <div className="mt-16 md:mt-20">
-          <Reveal>
-            <p className="smallcaps text-[hsl(var(--muted-warm))]">Honors</p>
-            <h3 className="display mt-3 text-[2.4rem] md:text-[3rem]">Recognition</h3>
-          </Reveal>
-          <div className="mt-8 grid grid-cols-12 gap-x-6 gap-y-8 md:gap-x-10">
-            <Reveal className="col-span-12 md:col-span-5">
-              <div className="h-full border border-[hsl(var(--oxblood)/0.35)] bg-[hsl(var(--oxblood-soft)/0.5)] p-6 md:p-8">
-                <RibbonIcon />
-                <h4 className="serif mt-5 text-[1.6rem] italic md:text-[1.8rem]">Honorable Mention</h4>
-                <p className="serif mt-1 text-lg text-[hsl(var(--ink-soft))]">Local Climate Change Reporting</p>
-                <p className="smallcaps mt-6 text-[hsl(var(--muted-warm))]">Associated Collegiate Press · 2025</p>
-              </div>
-            </Reveal>
-            <Reveal delay={120} className="col-span-12 md:col-span-7">
-              <ul className="border-b border-[hsl(var(--ink)/0.18)]">
-                {HONORS.map((honor) => (
-                  <li
-                    key={`${honor.year}-${honor.title}`}
-                    className="grid grid-cols-[5.5rem_1fr] items-baseline gap-x-6 border-t border-[hsl(var(--ink)/0.18)] py-4"
-                  >
-                    <span className="smallcaps text-[hsl(var(--muted-warm))]">{honor.year}</span>
-                    <span>
-                      <span className="serif block text-xl leading-snug">{honor.title}</span>
-                      <span className="smallcaps mt-1 block text-[hsl(var(--muted-warm))]">{honor.org}</span>
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </Reveal>
           </div>
         </div>

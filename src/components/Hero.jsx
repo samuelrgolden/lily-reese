@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import Reveal from "./Reveal.jsx";
+import CutReveal from "./CutReveal.jsx";
+import useTilt from "./useTilt.js";
 
 const WORDS = ["Writer", "Reporter", "Editor", "Storyteller"];
 
@@ -65,8 +67,12 @@ function RotatingWord() {
 }
 
 export default function Hero() {
+  const dispatchTilt = useTilt();
+
   return (
-    <section className="flex min-h-[100svh] flex-col pb-5 pt-24 md:pt-28">
+    /* pt-16 is exactly the nav's h-16, so the masthead's top rule lands flush
+       against the bottom of the bar instead of floating below it. */
+    <section className="flex min-h-[100svh] flex-col pb-5 pt-16">
       {/* Masthead bar — full-bleed rules; outer labels pushed to the page corners, center label stays put */}
       <div className="rule-strong" />
       <div className="smallcaps flex w-full items-center justify-between gap-4 px-6 py-3 text-[hsl(var(--muted-warm))] md:px-6">
@@ -77,14 +83,19 @@ export default function Hero() {
       <div className="rule" />
 
       <div className="mx-auto w-full max-w-[90rem] px-6 md:px-12">
-        <div className="grid grid-cols-12 gap-x-6 gap-y-10 py-10 md:gap-x-10 md:py-12">
+        {/* The masthead bar is pinned under the nav now, so this grid carries
+            the hero's breathing room itself rather than inheriting it from the
+            section's top padding — more space above the name than before. */}
+        <div className="grid grid-cols-12 gap-x-6 gap-y-10 pb-10 pt-20 md:gap-x-10 md:pb-12 md:pt-28">
           {/* Left: masthead heading */}
           <div className="col-span-12 md:col-span-8">
-            <Reveal>
-              <h1 className="display text-[clamp(3.5rem,13vw,13rem)]">
+            {/* The one heading above the fold, so it runs on load rather than
+                waiting for a scroll that already happened. */}
+            <h1 className="display text-[clamp(3.5rem,13vw,13rem)]">
+              <CutReveal immediate delay={120}>
                 Lily <span className="italic text-[hsl(var(--oxblood))]">Reese</span>
-              </h1>
-            </Reveal>
+              </CutReveal>
+            </h1>
 
             <Reveal delay={120}>
               <p className="serif mt-6 text-2xl text-[hsl(var(--ink-soft))] md:text-3xl">
@@ -107,15 +118,30 @@ export default function Hero() {
             </Reveal>
 
             <Reveal delay={260}>
-              <a
-                href="#about"
-                className="group lift mt-10 inline-flex items-center gap-2 smallcaps text-[hsl(var(--ink))] hover:text-[hsl(var(--oxblood))]"
-              >
-                Continue reading
-                <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-y-0.5">
-                  ↓
-                </span>
-              </a>
+              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+                {/* .dl-arrow is a two-glyph mask: the ↓ falls out the bottom as a
+                    fresh one drops in behind it. Below the breakpoint the class
+                    is inert and the arrow is just a static ↓. */}
+                <a
+                  href="#about"
+                  className="group dl lift inline-flex items-center gap-2 smallcaps text-[hsl(var(--ink))] hover:text-[hsl(var(--oxblood))]"
+                >
+                  Continue reading
+                  <span aria-hidden="true" className="dl-arrow">
+                    ↓
+                  </span>
+                </a>
+
+                {/* Relocated from the nav. The hover:bg utility is what still
+                    runs on touch and under the breakpoint; .btn-flow overrides
+                    it on desktop with the disc fill. */}
+                <a
+                  href="#contact"
+                  className="smallcaps lift btn-flow whitespace-nowrap rounded-full border border-[hsl(var(--ink))] px-5 py-2.5 [--flow:hsl(var(--oxblood))] hover:bg-[hsl(var(--ink))] hover:text-[hsl(var(--paper))]"
+                >
+                  Get in touch
+                </a>
+              </div>
             </Reveal>
           </div>
 
@@ -123,10 +149,11 @@ export default function Hero() {
           <div className="col-span-12 md:col-span-4 md:self-start">
             <Reveal delay={180}>
               <a
+                ref={dispatchTilt}
                 href={DISPATCH.href}
                 target="_blank"
                 rel="noreferrer"
-                className="group lift-card block rounded-xl border border-[hsl(var(--ink)/0.2)] bg-[hsl(var(--paper))] p-4"
+                className="group tilt lift-card block rounded-xl border border-[hsl(var(--ink)/0.2)] bg-[hsl(var(--paper))] p-4"
               >
                 <span className="flex items-center justify-between gap-4">
                   <span className="smallcaps text-[hsl(var(--oxblood))]">Latest Dispatch</span>

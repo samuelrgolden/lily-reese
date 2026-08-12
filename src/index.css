@@ -4,6 +4,7 @@
 /* Design tokens — HSL channels, consumed as hsl(var(--token) / a)    */
 /* ------------------------------------------------------------------ */
 :root {
+  color-scheme: light;
   --paper: 38 33% 96%;        /* warm off-white page background */
   --paper-deep: 36 22% 92%;   /* image placeholders, muted panels */
   --ink: 24 16% 9%;           /* primary text, near-black warm */
@@ -12,6 +13,36 @@
   --oxblood: 7 46% 32%;       /* accent red (links, period in logo) */
   --oxblood-deep: 7 50% 22%;  /* hover/darker accent */
   --oxblood-soft: 7 35% 90%;  /* light accent tint */
+}
+
+/* Photo scrims are the one place tokens must NOT flip. A caption sitting on a
+   photograph needs a dark veil and light type in both themes — deriving it from
+   --ink would turn the Autzen caption into cream-on-cream the moment the page
+   goes dark. Declared once, never overridden below. */
+:root {
+  --scrim: 24 20% 5%;
+  --on-scrim: 38 33% 96%;
+}
+
+/* Dark mode — driven only by the nav toggle, never by prefers-color-scheme,
+   so the page is light unless the visitor asks for otherwise.
+
+   The accent is the whole problem here. Oxblood at 32% lightness is a deep wine
+   that simply disappears on a near-black page, so dark mode lifts it to a rust
+   that still reads as the same family. --oxblood-deep inverts its meaning with
+   it: "deep" means *more emphasis*, which on a dark page is lighter, not darker.
+   And --oxblood-soft flips from a pale tint to a dark one, since its only job
+   (the ::selection bed) is to sit behind text. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: 24 14% 8%;
+  --paper-deep: 24 11% 13%;
+  --ink: 38 30% 92%;
+  --ink-soft: 36 14% 74%;
+  --muted-warm: 32 10% 58%;
+  --oxblood: 6 65% 63%;
+  --oxblood-deep: 6 60% 72%;
+  --oxblood-soft: 6 32% 21%;
 }
 
 html {
@@ -26,6 +57,9 @@ body {
   color: hsl(var(--ink));
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* Eases the theme flip instead of snapping it. Harmless on first paint —
+     there's no previous value to animate from. */
+  transition: background-color 0.45s ease, color 0.45s ease;
 }
 
 ::selection {
@@ -107,7 +141,8 @@ body {
   .lift-card {
     transition:
       translate 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.4s ease;
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
   }
 
   .lift-card:hover {
@@ -126,6 +161,286 @@ body {
     opacity: 1;
     transform: none;
   }
+
+  /* ------------------------------------------------------------------ */
+  /* CUT REVEAL — the display headings                                   */
+  /* ------------------------------------------------------------------ */
+  /* Ported from profilestudios-official's Work/Hero title entrance, which is
+     GSAP SplitText + a 118% yPercent tween on a 0.035s per-character stagger,
+     eased on the house curve (expo.out). Rebuilt here in plain CSS: the split
+     happens in CutReveal.jsx, the stagger is a per-character transition-delay,
+     and cubic-bezier(0.16, 1, 0.3, 1) is expo.out.
+
+     The mask is per WORD, not per character — clipping each character
+     individually would let them rise past each other's boxes and the cut line
+     would stop reading as one edge.
+
+     Below the desktop breakpoint this collapses to the plain fade the headings
+     had before: the mask needs overflow/padding surgery on every line box,
+     which isn't worth paying for on a phone. */
+  .cut-word {
+    display: inline-block;
+  }
+
+  .cut-char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .cut.in .cut-char {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Desktop-only motion. Everything below 48rem renders exactly as before.  */
+/* ---------------------------------------------------------------------- */
+@media (min-width: 48rem) {
+  /* The real cut. `overflow: clip` on an inline-block sized to the line box
+     shears the descenders off every 'g' and 'y' — pad the mask, then pull the
+     same amount back out of the flow so surrounding spacing is untouched. */
+  .cut-word {
+    /* Clip the block axis only. `overflow: clip` cuts both, and italic
+       Instrument Serif leans past its inline box on the right — which sheared
+       the final 'e' off "Reese". visible + clip is the one valid mixed pair
+       (visible only downgrades to auto when paired with scroll/hidden/auto). */
+    overflow-x: visible;
+    overflow-y: clip;
+    vertical-align: bottom;
+    padding-bottom: 0.22em;
+    margin-bottom: -0.22em;
+  }
+
+  .cut-char {
+    opacity: 1;
+    transform: translateY(118%);
+    transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    transition-delay: calc(var(--cut-base, 0ms) + var(--cut-i, 0) * 35ms);
+  }
+
+  .cut.in .cut-char {
+    transform: none;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* CARD TILT                                                           */
+  /* ------------------------------------------------------------------ */
+  /* Ported from profilestudios-official's WorkCard (after "Tilt Card" by
+     @tom_ui), minus GSAP. There the eased follow comes from gsap.quickTo; here
+     it's a plain transition on transform — the pointer rewrites --rx/--ry every
+     frame and each rewrite restarts a 0.55s ease, which is the same lag.
+
+     The perspective is on the card itself, not the grid, so each card turns
+     about its own vanishing point instead of twenty-one cards sharing one and
+     the outer ones tilting about a point they don't contain.
+
+     Weighted toward rotateY, the opposite of the source: that card is a wide
+     strip where vertical travel is the large fraction, these are tall portrait
+     cards where horizontal travel is. */
+  .tilt {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* .lift-card writes to `translate`, not `transform`, which is exactly what
+     lets the hover rise compose with the tilt instead of overwriting it. Its
+     transition has to be restated here because `transition` is a shorthand —
+     declared later on an element carrying both classes, it would wipe the lift. */
+  .tilt.lift-card {
+    transition:
+      transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+      translate 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.4s ease,
+      border-color 0.4s ease;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Buttons — UNLAYERED on purpose                                          */
+/* ---------------------------------------------------------------------- */
+/* These have to outrank Tailwind's `hover:bg-*` utilities, and unlayered
+   rules beat anything inside @layer regardless of specificity. The utilities
+   are deliberately left on the elements: they're what still runs below the
+   breakpoint and on touch, where none of this applies.
+
+   Consequence worth knowing: any hover colour change on these buttons has to
+   be written here too — a hover:text-… utility would now silently lose. */
+@media (hover: hover) and (min-width: 48rem) {
+  /* Flow-fill: an oversized disc parked off the lower-right corner floods the
+     button under its label. The oversize + offset is the whole trick — it
+     arrives as a curved leading edge instead of a flat wipe. Colour is set per
+     button, e.g. [--flow:hsl(var(--oxblood))]. */
+  .btn-flow {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .btn-flow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 100%;
+    background: var(--flow, hsl(var(--oxblood)));
+    transform: translate(150%, 150%) scale(2.5);
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Cancel the utility's instant background so the disc is the only fill. */
+  .btn-flow:hover,
+  .btn-flow:focus-visible {
+    background-color: transparent;
+    color: hsl(var(--paper));
+    border-color: var(--flow, hsl(var(--oxblood)));
+  }
+
+  .btn-flow:hover::before,
+  .btn-flow:focus-visible::before {
+    transform: translate(0, 0) scale(2.5);
+  }
+
+  .btn-flow:active {
+    scale: 0.97;
+  }
+
+  /* An already-filled button (the active work filter) keeps its fill and just
+     flows the accent over it on hover. */
+  .btn-flow[data-filled="true"]:hover,
+  .btn-flow[data-filled="true"]:focus-visible {
+    background-color: hsl(var(--ink));
+  }
+
+  /* Link rule — a hairline wipes in from the left, and out to the right on
+     leave. 1px + currentColor so it reads as the same stock as .rule and
+     inherits whatever the hover colour turns out to be. */
+  .link-wipe {
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .link-wipe::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: -0.25rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-wipe:hover::after,
+  .link-wipe:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* …and when the wipe sits inside a larger link, let the whole row drive it */
+  .group:hover .link-wipe::after,
+  .group:focus-visible .link-wipe::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* The ↓ falls out the bottom as a fresh one drops in behind it.
+
+     The markup keeps a literal ↓ inside the span so that below this breakpoint,
+     where none of these rules exist, the arrow is still there. Here that glyph
+     would be a third arrow, so it's hidden with `visibility` — inherited, but
+     overridable on the pseudo-elements, which a `color: transparent` or
+     `font-size: 0` would not be. */
+  .dl-arrow {
+    position: relative;
+    display: inline-block;
+    width: 0.7em;
+    height: 1em;
+    overflow: hidden;
+    vertical-align: -0.15em;
+    visibility: hidden;
+  }
+
+  .dl-arrow::before,
+  .dl-arrow::after {
+    content: "↓";
+    visibility: visible;
+    position: absolute;
+    left: 0;
+    line-height: 1;
+    transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .dl-arrow::before {
+    top: 0;
+  }
+
+  .dl-arrow::after {
+    top: -100%;
+  }
+
+  .dl:hover .dl-arrow::before,
+  .dl:hover .dl-arrow::after,
+  .dl:focus-visible .dl-arrow::before,
+  .dl:focus-visible .dl-arrow::after {
+    transform: translateY(100%);
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Theme toggle — sun↔moon morph                                           */
+/* ---------------------------------------------------------------------- */
+/* One dial that morphs rather than two icons that swap. The whole thing
+   rotates 270°, the rays shrink and swing away, and the body swells from a
+   small disc to a full one while a masked circle slides in from off-canvas to
+   carve the crescent.
+
+   Everything is a transform, never a geometry attribute — cx/cy/r as CSS is
+   still uneven across browsers. `transform-box: view-box` is what makes
+   transform-origin resolve against the 24×24 viewBox instead of each shape's
+   own bounding box. */
+.tt {
+  overflow: visible;
+  transition: transform 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.tt[data-dark="true"] {
+  transform: rotate(270deg);
+}
+
+.tt-body {
+  transform-box: view-box;
+  transform-origin: 12px 12px;
+  transform: scale(0.5556); /* r5 of the r9 circle — the sun disc */
+  transition: transform 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.tt[data-dark="true"] .tt-body {
+  transform: scale(1);
+}
+
+/* translate needs no transform-origin, so this shape can skip transform-box */
+.tt-carve {
+  transform: translate(16px, -8px); /* parked off-canvas: nothing is carved */
+  transition: transform 0.55s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.tt[data-dark="true"] .tt-carve {
+  transform: translate(0, 0);
+}
+
+.tt-rays {
+  transform-box: view-box;
+  transform-origin: 12px 12px;
+  transition: transform 0.55s cubic-bezier(0.34, 1.3, 0.64, 1), opacity 0.35s ease;
+}
+
+.tt[data-dark="true"] .tt-rays {
+  opacity: 0;
+  transform: rotate(-30deg) scale(0);
 }
 
 @keyframes wordFade {
@@ -160,11 +475,496 @@ html:not(.js-reveal) .reveal {
   animation: revealFailsafe 0.6s ease 1.2s forwards;
 }
 
+/* Same failsafe for the cut headings — without it a JS-less visitor gets every
+   display heading parked 118% below its own mask, i.e. a page of blank gaps. */
+html:not(.js-reveal) .cut-char {
+  animation: revealFailsafe 0.6s ease 1.2s forwards;
+}
+
 /* The root font scales above 1536px, so the ticker track widens and would
    otherwise cover more distance in the same 48s. Lengthen the loop to match. */
 @media (min-width: 1536px) {
   .ticker-track {
     animation-duration: 72s;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* KINETIC MENU — after "Sterling Gate Kinetic Navigation" (21st.dev)      */
+/* ---------------------------------------------------------------------- */
+/* The component ships markup and a GSAP timeline but no surface styling, so
+   everything here is written against this site's tokens rather than the
+   indigo/violet palette the original assumes.
+
+   The panel deliberately sits BELOW the nav bar in z, not above it: the
+   hamburger is the close affordance, so it has to stay on top of the thing it
+   opened. The content wrapper is padded clear of the bar for the same reason. */
+/* The burger and the panel are siblings, and the panel is positioned at z-40
+   while a plain button is static — so the panel painted straight over the X.
+   Raising the trigger keeps the close affordance on top of what it opened. */
+.burger {
+  position: relative;
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.burger-bars {
+  position: relative;
+  display: block;
+  width: 1.125rem;
+  height: 0.75rem;
+}
+
+.burger-bars span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: currentColor;
+  transition:
+    transform 0.45s cubic-bezier(0.65, 0.01, 0.05, 0.99),
+    opacity 0.25s ease;
+}
+
+.burger-bars span:nth-child(1) { top: 0; }
+.burger-bars span:nth-child(2) { top: 50%; margin-top: -0.75px; }
+.burger-bars span:nth-child(3) { bottom: 0; }
+
+/* Bars converge and cross rather than being swapped for a different glyph. */
+.burger[data-open="true"] .burger-bars span:nth-child(1) {
+  transform: translateY(0.375rem) rotate(45deg);
+}
+.burger[data-open="true"] .burger-bars span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.burger[data-open="true"] .burger-bars span:nth-child(3) {
+  transform: translateY(-0.375rem) rotate(-45deg);
+}
+
+.nav-overlay-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: none;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  background: hsl(var(--scrim) / 0.42);
+}
+
+/* A panel, not a takeover. The page behind stays legible — on a one-page site
+   it's the context, and hiding all of it to show four links is a bad trade. */
+.menu-content {
+  position: absolute;
+  inset-block: 0;
+  right: 0;
+  width: min(24rem, 88vw);
+  overflow: hidden;
+  border-left: 1px solid hsl(var(--ink) / 0.18);
+  box-shadow: -2rem 0 4rem -1.5rem hsl(var(--scrim) / 0.35);
+}
+
+.menu-bg {
+  position: absolute;
+  inset: 0;
+}
+
+/* Three layers sweeping in on a stagger: an oxblood flash, an ink wipe, then
+   the paper the menu actually sits on. The accent is only ever in transit. */
+.backdrop-layer {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--paper));
+}
+.backdrop-layer.first { background: hsl(var(--oxblood)); }
+.backdrop-layer.second { background: hsl(var(--ink)); }
+
+.menu-content-wrapper {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  /* clear of the fixed nav bar, which stays above this */
+  padding: 6rem 2rem 2.5rem;
+}
+
+.menu-eyebrow {
+  color: hsl(var(--muted-warm));
+}
+
+.menu-list {
+  margin-top: 2rem;
+  border-top: 1px solid hsl(var(--ink) / 0.18);
+}
+
+/* The cut each link rises out of — the timeline starts them at yPercent 140
+   with a 10deg roll, and without this you'd watch them travel up from below. */
+.menu-list-item {
+  overflow: hidden;
+  border-bottom: 1px solid hsl(var(--ink) / 0.18);
+}
+
+.nav-link {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.1rem 0.75rem;
+  isolation: isolate;
+}
+
+.nav-link-index {
+  position: relative;
+  z-index: 1;
+  font-size: 0.58rem;
+  color: hsl(var(--muted-warm));
+  transition: color 0.3s ease;
+}
+
+.nav-link-text {
+  position: relative;
+  z-index: 1;
+  font-size: 1.85rem;
+  line-height: 1.1;
+  transition: color 0.35s ease;
+}
+
+/* The component's own hover response, kept in place of the ambient shape field
+   the original animates in — five SVGs of coloured blobs that a panel this
+   width has no room for, in a palette that isn't this site's. */
+.nav-link-hover-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: hsl(var(--oxblood));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.65, 0.01, 0.05, 0.99);
+}
+
+.nav-link:hover .nav-link-hover-bg,
+.nav-link:focus-visible .nav-link-hover-bg {
+  transform: scaleX(1);
+}
+
+.nav-link:hover .nav-link-text,
+.nav-link:focus-visible .nav-link-text,
+.nav-link:hover .nav-link-index,
+.nav-link:focus-visible .nav-link-index {
+  color: hsl(var(--paper));
+}
+
+.menu-foot {
+  margin-top: auto;
+  padding-top: 2rem;
+  color: hsl(var(--muted-warm));
+}
+
+/* ---------------------------------------------------------------------- */
+/* HOME COLLAGE — masthead colour, dialled well back                       */
+/* ---------------------------------------------------------------------- */
+/* Lighter touch than the All Work list. Those cards are mostly photograph, so
+   colour has to compete with twenty-one full-bleed images — anything at rest
+   beyond the bullet would just add noise to an already busy wall. Everything
+   else waits for hover, when there's exactly one card to speak for. */
+.work-dot {
+  color: hsl(var(--pub, var(--oxblood)));
+}
+
+.workcard:hover {
+  border-color: hsl(var(--pub, var(--oxblood)) / 0.45);
+}
+
+.workcard:hover .work-title {
+  color: hsl(var(--pub, var(--oxblood)));
+}
+
+/* The tag chip sits on the photo, so it stays paper-on-image for legibility and
+   only takes the masthead colour in its text. */
+.workcard .work-tag {
+  color: hsl(var(--pub, var(--ink)));
+}
+
+.workcard:hover .work-arrow {
+  background: hsl(var(--pub, var(--ink)));
+  border-color: hsl(var(--pub, var(--ink)));
+  color: hsl(var(--paper));
+}
+
+/* ---------------------------------------------------------------------- */
+/* ALL WORK — showcase list                                                */
+/* ---------------------------------------------------------------------- */
+/* Masthead hues. One narrow band of lightness and saturation so the six read
+   as a set; see data/publications.js for which outlet gets which. Every use of
+   colour on this page resolves through --pub, so re-tuning a masthead here
+   moves its index, bullet, tag, hairline and filter pill together. */
+[data-pub="weekly"] { --pub: 7 46% 38%; }
+[data-pub="ethos"] { --pub: 268 24% 46%; }
+[data-pub="ascend"] { --pub: 202 34% 38%; }
+[data-pub="sojc"] { --pub: 150 28% 32%; }
+[data-pub="herald"] { --pub: 30 42% 38%; }
+/* Coursework is a warm grey, not a colour — it isn't a masthead. */
+[data-pub="jcom"] { --pub: 30 8% 45%; }
+
+/* Dark mode lifts lightness and eases saturation back. A 32%-light violet on a
+   near-black page is indistinguishable from the ink around it. */
+:root[data-theme="dark"] [data-pub="weekly"] { --pub: 6 65% 63%; }
+:root[data-theme="dark"] [data-pub="ethos"] { --pub: 268 40% 72%; }
+:root[data-theme="dark"] [data-pub="ascend"] { --pub: 202 48% 64%; }
+:root[data-theme="dark"] [data-pub="sojc"] { --pub: 150 34% 58%; }
+:root[data-theme="dark"] [data-pub="herald"] { --pub: 32 52% 60%; }
+:root[data-theme="dark"] [data-pub="jcom"] { --pub: 32 10% 58%; }
+.showcase-row {
+  border-bottom: 1px solid hsl(var(--ink) / 0.18);
+}
+
+.showcase-link {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem 1.25rem;
+  padding: 1.25rem 0.5rem;
+  transition: padding-left 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The masthead hairline — grows out of the left edge on hover. This is the
+   colour code's main carrier: it's the only element that's pure --pub, and it
+   only exists while you're pointing at the row. */
+.showcase-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 0;
+  width: 2px;
+  background: hsl(var(--pub, var(--oxblood)));
+  transform: translateY(-50%);
+  transition:
+    height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s ease;
+  opacity: 0;
+}
+
+.showcase-link:hover::before,
+.showcase-link:focus-visible::before {
+  height: 62%;
+  opacity: 1;
+}
+
+.showcase-idx {
+  font-size: 0.58rem;
+  /* At rest the index already carries the masthead, quietly — this is what
+     makes the list scannable by outlet without anything being loud. */
+  color: hsl(var(--pub, var(--muted-warm)));
+  transition: color 0.3s ease;
+}
+
+.showcase-body {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.showcase-title {
+  font-size: 1.35rem;
+  line-height: 1.2;
+  transition: color 0.35s ease;
+}
+
+.showcase-meta {
+  font-size: 0.6rem;
+  color: hsl(var(--muted-warm));
+}
+
+.showcase-tag {
+  display: none;
+  font-size: 0.55rem;
+  color: hsl(var(--pub, var(--muted-warm)));
+  border: 1px solid hsl(var(--pub, var(--muted-warm)) / 0.35);
+  border-radius: 0.125rem;
+  padding: 0.25rem 0.55rem;
+}
+
+/* The bullet between publication and date, in the masthead's own colour. */
+.showcase-dot {
+  color: hsl(var(--pub, var(--oxblood)));
+}
+
+/* Deliberately NOT --pub. This is a status, not a masthead, and colouring it
+   by outlet would make it read as one more publication. Oxblood everywhere so
+   the eye can sweep the column for it. */
+.showcase-recent {
+  margin-left: 0.7rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid hsl(var(--oxblood) / 0.4);
+  background: hsl(var(--oxblood) / 0.08);
+  padding: 0.1rem 0.5rem;
+  font-size: 0.5rem;
+  color: hsl(var(--oxblood));
+}
+
+.showcase-recent::before {
+  content: "";
+  height: 0.3rem;
+  width: 0.3rem;
+  border-radius: 100%;
+  background: hsl(var(--oxblood));
+}
+
+/* ---- filter row ---- */
+/* Each pill carries its masthead's hue as the dot and as the flow-fill colour,
+   so the legend and the list teach each other. */
+.showcase-filter {
+  --flow: hsl(var(--pub, var(--oxblood)));
+}
+
+.showcase-filter[data-active="true"] {
+  border-color: hsl(var(--pub, var(--oxblood)));
+  background-color: hsl(var(--pub, var(--oxblood)));
+  color: hsl(var(--paper));
+}
+
+.showcase-filter-dot {
+  display: inline-block;
+  height: 0.4rem;
+  width: 0.4rem;
+  border-radius: 100%;
+  background: hsl(var(--pub, var(--oxblood)));
+}
+
+.showcase-filter[data-active="true"] .showcase-filter-dot {
+  background: hsl(var(--paper));
+}
+
+.showcase-arrow {
+  display: flex;
+  height: 1.75rem;
+  width: 1.75rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  color: hsl(var(--muted-warm));
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+}
+
+.showcase-arrow svg {
+  height: 0.85rem;
+  width: 0.85rem;
+}
+
+/* Touch affordance: the image lives in the row, because there's no hover to
+   reveal a cursor preview with. */
+.showcase-thumb {
+  display: block;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  background: hsl(var(--paper-deep));
+  grid-column: 2 / -1;
+}
+
+.showcase-thumb img {
+  display: block;
+  height: 9rem;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* The cursor preview is fixed rather than absolute so its coordinates are the
+   pointer's coordinates — no offset parent to subtract. */
+.showcase-preview {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 30;
+  display: none;
+  height: 15rem;
+  width: 20rem;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--ink) / 0.15);
+  box-shadow: 0 2rem 4rem -1.5rem hsl(var(--scrim) / 0.45);
+  opacity: 0;
+  /* The transform is written every frame by rAF, so only the fade is a
+     transition here — putting transform in this list would fight the lerp. */
+  transition: opacity 0.35s ease, scale 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  scale: 0.92;
+  pointer-events: none;
+}
+
+.showcase-preview img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.showcase-preview[data-on="true"] {
+  opacity: 1;
+  scale: 1;
+}
+
+@media (hover: hover) and (min-width: 48rem) {
+  .showcase-preview {
+    display: block;
+  }
+
+  /* The row is type only once there's a preview to carry the image. */
+  .showcase-thumb {
+    display: none;
+  }
+
+  .showcase-tag {
+    display: block;
+  }
+
+  .showcase-link {
+    grid-template-columns: auto 1fr auto auto;
+    padding: 1.6rem 0.5rem;
+  }
+
+  .showcase-title {
+    font-size: 2rem;
+  }
+
+  /* Pointing at a row indents it — the list reorders itself around your
+     attention instead of just recolouring. */
+  .showcase-link:hover,
+  .showcase-link:focus-visible {
+    padding-left: 1.75rem;
+  }
+
+  /* The headline takes the masthead colour only on hover — at rest it's ink,
+     because twenty-one coloured headlines is a chart, not a body of work. */
+  .showcase-link:hover .showcase-title,
+  .showcase-link:focus-visible .showcase-title {
+    color: hsl(var(--pub, var(--oxblood)));
+  }
+
+  .showcase-link:hover .showcase-arrow,
+  .showcase-link:focus-visible .showcase-arrow {
+    transform: translate(0.25rem, -0.25rem);
+    color: hsl(var(--pub, var(--oxblood)));
+  }
+
+  /* The preview picks up a rim of the masthead's colour, tying the image that
+     follows the cursor back to the row that summoned it. */
+  .showcase-preview {
+    border-color: hsl(var(--pub, var(--ink)) / 0.5);
   }
 }
 
@@ -176,8 +976,22 @@ html:not(.js-reveal) .reveal {
   .word-rotate {
     animation: none;
   }
+  body {
+    transition: none;
+  }
   .reveal {
     opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .cut-char,
+  .cut.in .cut-char {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  /* The tilt is pointer decoration and nothing else — it just doesn't happen. */
+  .tilt {
     transform: none;
     transition: none;
   }
@@ -185,5 +999,31 @@ html:not(.js-reveal) .reveal {
   .lift-card:hover {
     translate: none;
     box-shadow: none;
+  }
+  /* Keep the hover feedback, drop the travel — the states still change, they
+     just change instantly. */
+  .btn-flow::before,
+  .dl-arrow::before,
+  .dl-arrow::after,
+  .link-wipe::after {
+    transition: none;
+  }
+  .btn-flow:active {
+    scale: none;
+  }
+  /* The toggler still switches state, it just snaps between sun and moon. */
+  .tt,
+  .tt-body,
+  .tt-carve,
+  .tt-rays {
+    transition: none;
+  }
+  /* The menu still opens and the hamburger still becomes an X — the GSAP
+     timeline collapses its own durations, these are the CSS-driven halves. */
+  .burger-bars span,
+  .nav-link-hover-bg,
+  .nav-link-text,
+  .nav-link-index {
+    transition: none;
   }
 }

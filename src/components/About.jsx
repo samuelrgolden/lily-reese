@@ -1,4 +1,5 @@
 import Reveal from "./Reveal.jsx";
+import CutReveal from "./CutReveal.jsx";
 
 const FACTS = [
   ["Currently", "Eugene Weekly · Ascend · Align"],
@@ -21,12 +22,16 @@ export default function About() {
         <div className="grid grid-cols-12 gap-x-6 gap-y-12 md:gap-x-10">
           {/* Section label + facts */}
           <div className="col-span-12 md:col-span-3">
+            {/* The heading sits outside the Reveal on purpose — a fade running
+                over the mask muddies it, and only one of the two can win. */}
             <Reveal>
               <p className="smallcaps text-[hsl(var(--muted-warm))]">Section I</p>
-              <h2 className="display mt-3 text-[2.9rem] md:text-[3.6rem]">
-                About<span className="text-[hsl(var(--oxblood))]">.</span>
-              </h2>
             </Reveal>
+            <h2 className="display mt-3 text-[2.9rem] md:text-[3.6rem]">
+              <CutReveal delay={90}>
+                About<span className="text-[hsl(var(--oxblood))]">.</span>
+              </CutReveal>
+            </h2>
             <Reveal delay={120}>
               <dl className="mt-10 border-b border-[hsl(var(--ink)/0.18)]">
                 {FACTS.map(([label, value]) => (
