@@ -86,14 +86,14 @@ export default function Contact() {
               />
             </div>
             <figcaption className="smallcaps mt-3 text-[hsl(var(--muted-warm))]">
-              Fig. 3 — Autzen Stadium, Eugene · April 2026
+              Autzen Stadium, Eugene · April 2026
             </figcaption>
           </Reveal>
 
           {/* Colophon */}
           <div className="col-span-12 md:col-span-8">
             <Reveal>
-              <p className="smallcaps text-[hsl(var(--muted-warm))]">Section V — Colophon</p>
+              <p className="smallcaps text-[hsl(var(--muted-warm))]">Section V</p>
             </Reveal>
             {/* One mask per line, staggered — "story." is the payoff word, so it
                 gets its own beat rather than arriving with the setup. */}

@@ -19,12 +19,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "What’s in a Nickname?",
+  title: "Your Pet Has Been Studying You",
   pub: "Eugene Weekly",
-  date: "July 23, 2026",
-  tag: "Food",
-  img: "/work/beccofino.webp",
-  href: "https://eugeneweekly.com/2026/07/23/whats-in-a-nickname-2/",
+  date: "August 13, 2026",
+  tag: "Pets",
+  img: "/work/pet-study.webp",
+  href: "https://eugeneweekly.com/2026/08/13/your-pet-has-been-studying-you/",
 };
 
 function ArrowUpRight({ className = "" }) {
@@ -73,38 +73,40 @@ export default function Hero() {
     /* pt-16 is exactly the nav's h-16, so the masthead's top rule lands flush
        against the bottom of the bar instead of floating below it. */
     <section className="flex min-h-[100svh] flex-col pb-5 pt-16">
-      {/* Masthead bar — full-bleed rules; outer labels pushed to the page corners, center label stays put */}
+      {/* Full-bleed rule under the nav, with the masthead line beneath it —
+          two labels pushed to the page corners, no closing rule. */}
       <div className="rule-strong" />
       <div className="smallcaps flex w-full items-center justify-between gap-4 px-6 py-3 text-[hsl(var(--muted-warm))] md:px-6">
-        <span className="text-[hsl(var(--ink))]">The Lily Reese · Vol. 01</span>
-        <span className="hidden md:block">Edition I · Portfolio</span>
-        <span>Eugene, Oregon</span>
+        <span>A Portfolio</span>
+        <span>5 Years in Journalism</span>
       </div>
-      <div className="rule" />
 
       <div className="mx-auto w-full max-w-[90rem] px-6 md:px-12">
         {/* The masthead bar is pinned under the nav now, so this grid carries
             the hero's breathing room itself rather than inheriting it from the
             section's top padding — more space above the name than before. */}
         <div className="grid grid-cols-12 gap-x-6 gap-y-10 pb-10 pt-20 md:gap-x-10 md:pb-12 md:pt-28">
-          {/* Left: masthead heading */}
-          <div className="col-span-12 md:col-span-8">
+          {/* Left: masthead heading. Centred on a phone, where a left-ragged
+              column under a full-bleed rule reads as a stray margin. */}
+          <div className="col-span-12 text-center md:col-span-8 md:text-left">
             {/* The one heading above the fold, so it runs on load rather than
                 waiting for a scroll that already happened. */}
-            <h1 className="display text-[clamp(3.5rem,13vw,13rem)]">
+            {/* Only the floor moved: 13vw still governs from tablet up, so the
+                name is bigger on a phone and unchanged everywhere else. */}
+            <h1 className="display text-[clamp(4rem,13vw,13rem)]">
               <CutReveal immediate delay={120}>
                 Lily <span className="italic text-[hsl(var(--oxblood))]">Reese</span>
               </CutReveal>
             </h1>
 
             <Reveal delay={120}>
-              <p className="serif mt-6 text-2xl text-[hsl(var(--ink-soft))] md:text-3xl">
+              <p className="serif mt-6 text-[1.6rem] text-[hsl(var(--ink-soft))] md:text-3xl">
                 A journalist who is a <RotatingWord />
               </p>
             </Reveal>
 
             <Reveal delay={200}>
-              <p className="smallcaps mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-[hsl(var(--muted-warm))]">
+              <p className="smallcaps mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[hsl(var(--muted-warm))] md:justify-start">
                 <span>
                   By <span className="text-[hsl(var(--ink))]">Lily Reese</span>
                 </span>
@@ -118,7 +120,7 @@ export default function Hero() {
             </Reveal>
 
             <Reveal delay={260}>
-              <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 md:justify-start">
                 {/* .dl-arrow is a two-glyph mask: the ↓ falls out the bottom as a
                     fresh one drops in behind it. Below the breakpoint the class
                     is inert and the arrow is just a static ↓. */}

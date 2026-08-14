@@ -9,26 +9,23 @@ import { FILTERS, pubSlug } from "../data/publications.js";
  * ALL WORK
  * ----------------------------------------------------------------------------
  * After "Project Showcase" (@jatin-yadav05, 21st.dev): a list of rows rather
- * than a grid, with the hovered row's image riding the cursor. It turns the
- * whole body of work into one scannable column and only spends screen space on
- * the piece you're actually pointing at.
+ * than a grid. The row carries its own thumbnail hard right — same structure as
+ * the Profile Studios work cards — and what rides the cursor is a disc with an
+ * up-and-right arrow, the universal "this opens away from here" mark.
  *
- * Rebuilt rather than installed. One preview element is reused for every row —
- * twenty-one mounted images that each animate their own opacity is twenty-one
- * chances to jank; swapping the `src` on a single node costs nothing and the
- * browser has them cached from the home page collage anyway.
+ * The row sets `cursor: none` on fine pointers, so the disc IS the pointer
+ * while you're over the list. That's why the follow weight is high (0.32): at a
+ * lazy lerp it stops reading as the cursor and starts reading as a thing
+ * chasing it. One node for the whole list, moved on rAF.
  *
- * The follow is a lerp on rAF, not a transform written straight from the
- * pointer event: at 1:1 the image is welded to the cursor, and the lag is what
- * makes it read as a thing being dragged along rather than part of the pointer.
- *
- * Pointer-only, so touch gets a different affordance entirely — see the inline
- * thumbnail below, which is why the <img> is in the row markup too.
+ * Pointer-only. Touch keeps the pointer it never had replaced, and the row
+ * thumbnail is doing the visual work at every size anyway.
  */
-function useCursorPreview() {
+function useHoverCursor() {
   const previewRef = useRef(null);
   const target = useRef({ x: 0, y: 0 });
   const current = useRef({ x: 0, y: 0 });
+  const placed = useRef(false);
   const raf = useRef(0);
   const [active, setActive] = useState(null);
 
@@ -41,15 +38,21 @@ function useCursorPreview() {
     const onMove = (e) => {
       target.current.x = e.clientX;
       target.current.y = e.clientY;
+      /* First sighting jumps rather than travels — the disc is mounted at the
+         origin, and easing in from the corner is a comet across the page. */
+      if (!placed.current) {
+        placed.current = true;
+        current.current.x = e.clientX;
+        current.current.y = e.clientY;
+      }
     };
 
     const tick = () => {
       const el = previewRef.current;
       if (el) {
-        // 0.12 is the follow weight: lower lags further behind the cursor.
-        current.current.x += (target.current.x - current.current.x) * 0.12;
-        current.current.y += (target.current.y - current.current.y) * 0.12;
-        el.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0) translate(-50%, -50%)`;
+        current.current.x += (target.current.x - current.current.x) * 0.32;
+        current.current.y += (target.current.y - current.current.y) * 0.32;
+        el.style.transform = `translate3d(${current.current.x}px, ${current.current.y}px, 0)`;
       }
       raf.current = requestAnimationFrame(tick);
     };
@@ -66,7 +69,7 @@ function useCursorPreview() {
 }
 
 export default function WorkPage() {
-  const { previewRef, active, setActive } = useCursorPreview();
+  const { previewRef, active, setActive } = useHoverCursor();
   const [filter, setFilter] = useState(FILTERS[0].label);
 
   const chosen = FILTERS.find((f) => f.label === filter) ?? FILTERS[0];
@@ -81,12 +84,12 @@ export default function WorkPage() {
             <Reveal>
               <p className="smallcaps text-[hsl(var(--muted-warm))]">The Complete File</p>
             </Reveal>
-            <h1 className="display mt-4 text-[3.2rem] md:text-[6rem]">
+            <h1 className="display mt-4 text-[4.5rem] md:text-[6rem]">
               <CutReveal delay={90}>
                 All <span className="italic text-[hsl(var(--oxblood))]">Work</span>
               </CutReveal>
             </h1>
-            <Reveal as="p" delay={200} className="serif mx-auto mt-5 max-w-xl text-lg text-[hsl(var(--ink-soft))]">
+            <Reveal as="p" delay={200} className="serif mx-auto mt-4 max-w-xl text-sm text-[hsl(var(--ink-soft))] md:mt-5 md:text-lg">
               {ARTICLES.length} pieces — features, essays, audio, and reported stories, from food carts to finish
               lines.
             </Reveal>
@@ -114,7 +117,7 @@ export default function WorkPage() {
                        the masthead colour, which must survive the hover. */
                     aria-pressed={active2}
                     onClick={() => setFilter(f.label)}
-                    className={`showcase-filter smallcaps lift btn-flow inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 ${
+                    className={`showcase-filter smallcaps lift btn-flow inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-2.5 py-1 md:gap-2 md:px-4 md:py-2 ${
                       active2
                         ? ""
                         : "border-[hsl(var(--ink)/0.25)] text-[hsl(var(--ink-soft))] hover:border-[hsl(var(--ink))]"
@@ -129,8 +132,8 @@ export default function WorkPage() {
             </Reveal>
           </div>
 
-          {/* The list. Hovering a row lifts it and hands its image to the
-              preview; the row itself stays type, never a thumbnail grid. */}
+          {/* The list. Hovering a row indents it, colours it by masthead, and
+              hands its hue to the cursor disc. */}
           <ul
             className="showcase mt-14 border-t border-[hsl(var(--ink)/0.18)] md:mt-20"
             onPointerLeave={() => setActive(null)}
@@ -150,9 +153,9 @@ export default function WorkPage() {
                   target="_blank"
                   rel="noreferrer"
                   className="showcase-link group"
+                  /* Pointer only — the disc is a cursor, and summoning one on
+                     keyboard focus would park it wherever the mouse was left. */
                   onPointerEnter={() => setActive(article)}
-                  onFocus={() => setActive(article)}
-                  onBlur={() => setActive(null)}
                 >
                   <span className="showcase-idx smallcaps" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
@@ -166,13 +169,6 @@ export default function WorkPage() {
                     </span>
                   </span>
 
-                  {/* Touch has no hover to reveal the preview with, so the image
-                      rides along in the row instead. Hidden once a fine pointer
-                      and the breakpoint are both available. */}
-                  <span className="showcase-thumb">
-                    <img src={article.img} alt="" loading="lazy" />
-                  </span>
-
                   <span className="showcase-tag smallcaps" aria-hidden="true">
                     {article.tags[0]}
                   </span>
@@ -182,22 +178,40 @@ export default function WorkPage() {
                       <path d="M7 17 17 7M7 7h10v10" />
                     </svg>
                   </span>
+
+                  {/* Hard right, last in the row. Decorative — the headline
+                      beside it already names the piece. */}
+                  <span className="showcase-thumb">
+                    <img src={article.img} alt="" loading="lazy" />
+                  </span>
                 </a>
               </Reveal>
             ))}
           </ul>
         </div>
 
-        {/* One node, reused. Fixed to the viewport so it's positioned in the
-            same space the pointer coordinates are already in. */}
+        {/* One node for the whole list. Fixed to the viewport so it's
+            positioned in the same space the pointer coordinates already are —
+            no offset parent to subtract. data-pub keeps the masthead colour
+            coding: the disc wears the hue of the row it's sitting over. */}
         <div
-          className="showcase-preview"
+          className="showcase-cursor"
           ref={previewRef}
           data-on={Boolean(active)}
           data-pub={active ? pubSlug(active.pub) : undefined}
           aria-hidden="true"
         >
-          {active && <img src={active.img} alt="" />}
+          <span className="showcase-cursor__disc">
+            <svg viewBox="0 0 16 16" fill="none">
+              <path
+                d="M4.6 11.4 11.4 4.6M5.9 4.6h5.5v5.5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
         </div>
       </section>
     </PageShell>

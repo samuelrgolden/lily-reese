@@ -11,6 +11,30 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "Your Pet Has Been Studying You",
+    pub: "Eugene Weekly",
+    date: "Aug 13, 2026",
+    tags: ["Pets", "Culture"],
+    description:
+      "Oregon State’s Human-Animal Interaction Lab on what pets learn about us — the routines they read, the moods they track, and why the attachment runs both ways.",
+    featured: false,
+    href: "https://eugeneweekly.com/2026/08/13/your-pet-has-been-studying-you/",
+    img: "/work/pet-study.webp",
+    size: [1200, 779],
+  },
+  {
+    title: "Skål Yeah!",
+    pub: "Eugene Weekly",
+    date: "Aug 13, 2026",
+    tags: ["Culture", "Community"],
+    description:
+      "Junction City’s Scandinavian Festival gives each of its four days to a different Nordic country — blacksmithing, embroidery, traditional dress, and four days of free admission.",
+    featured: false,
+    href: "https://eugeneweekly.com/2026/08/13/skal-yeah/",
+    img: "/work/skal-yeah.webp",
+    size: [1200, 779],
+  },
+  {
     title: "The Chronicle Closes After 117 Years",
     pub: "Eugene Weekly",
     date: "Aug 11, 2026",
@@ -29,6 +53,7 @@ export const ARTICLES = [
     tags: ["Food", "Profiles"],
     description:
       "“Beccofino” means picky eater — the childhood nickname Maurizio Bianchi now paints on a red food truck serving handmade seasonal pasta.",
+    featured: false,
     href: "https://eugeneweekly.com/2026/07/23/whats-in-a-nickname-2/",
     img: "/work/beccofino.webp",
     size: [1200, 779],
@@ -92,7 +117,6 @@ export const ARTICLES = [
     tags: ["Campus", "Awards"],
     description:
       "Three strategic communication master’s students take first place in a national PR case study competition.",
-    featured: false,
     href: "https://journalism.uoregon.edu/news/2026-page-society-pr-case-study",
     img: "/work/page-society.webp",
     size: [768, 433],
@@ -202,6 +226,7 @@ export const ARTICLES = [
     tags: ["Climate", "Community", "Features"],
     description:
       "Inside Lost Valley, an intentional community grappling with what it really costs to live sustainably.",
+    featured: false,
     href: "https://dailyemerald.com/185072/features/the-sustainability-dilemma-at-the-heart-of-community-living/",
     img: "/work/sustainability-dilemma.webp",
     size: [1200, 800],
@@ -264,6 +289,7 @@ export const ARTICLES = [
     date: "May 12, 2025",
     tags: ["Arts", "Community"],
     description: "How a network of small companies and stubborn artists keep live performance going.",
+    featured: false,
     href: "https://dailyemerald.com/185015/features/the-partnerships-keeping-eugenes-theater-alive/",
     img: "/work/eugene-theater.webp",
     size: [1200, 900],
@@ -276,6 +302,7 @@ export const ARTICLES = [
     kind: "class",
     description:
       "Inside EPIC Healing Eugene with a licensed psilocybin facilitator who guides clients under Oregon’s Measure 109.",
+    featured: false,
     href: "https://lilylreese.wixsite.com/lily-reese-portfol-1/copy-of-public-meeting",
     img: "/work/askins-profile.webp",
     size: [1000, 489],
@@ -286,6 +313,7 @@ export const ARTICLES = [
     date: "Jun 5, 2024",
     tags: ["Climate", "Community", "Food"],
     description: "A community garden in Eugene becomes a study in what shared land can teach.",
+    featured: false,
     href: "https://dailyemerald.com/184070/features/growing-the-grove-garden-the-need-for-intentional-communities/",
     img: "/work/grove-garden.webp",
     size: [1080, 720],

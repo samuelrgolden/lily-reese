@@ -2,7 +2,7 @@ import Reveal from "./Reveal.jsx";
 import CutReveal from "./CutReveal.jsx";
 
 const FACTS = [
-  ["Currently", "Eugene Weekly · Ascend · Align"],
+  ["writing for", "Eugene Weekly · Ascend · SOJC"],
   ["Based", "Eugene, OR"],
   ["School", "UO · SOJC"],
   ["Class of", "2027"],
@@ -19,47 +19,54 @@ export default function About() {
   return (
     <section id="about" className="py-14 md:py-16">
       <div className="mx-auto max-w-[90rem] px-6 md:px-12">
-        <div className="grid grid-cols-12 gap-x-6 gap-y-12 md:gap-x-10">
-          {/* Section label + facts */}
-          <div className="col-span-12 md:col-span-3">
-            {/* The heading sits outside the Reveal on purpose — a fade running
-                over the mask muddies it, and only one of the two can win. */}
-            <Reveal>
-              <p className="smallcaps text-[hsl(var(--muted-warm))]">Section I</p>
-            </Reveal>
-            <h2 className="display mt-3 text-[2.9rem] md:text-[3.6rem]">
-              <CutReveal delay={90}>
-                About<span className="text-[hsl(var(--oxblood))]">.</span>
-              </CutReveal>
-            </h2>
-            <Reveal delay={120}>
-              <dl className="mt-10 border-b border-[hsl(var(--ink)/0.18)]">
+        {/* On a phone the desktop column order — facts, then portrait, then
+            bio — buries the writing under a table nobody reads first. The left
+            column is `display: contents` below the breakpoint so its heading
+            and its fact list become grid items in their own right and can be
+            ordered apart: heading, portrait, bio, facts. At md the wrapper is
+            a block again and the original three-column layout returns. */}
+        <div className="grid grid-cols-12 gap-x-6 gap-y-8 md:gap-x-10 md:gap-y-12">
+          <div className="contents md:col-span-3 md:block">
+            <div className="order-1 col-span-12">
+              {/* The heading sits outside the Reveal on purpose — a fade running
+                  over the mask muddies it, and only one of the two can win. */}
+              <Reveal>
+                <p className="smallcaps text-[hsl(var(--muted-warm))]">Section I</p>
+              </Reveal>
+              <h2 className="display mt-3 text-[2.9rem] md:text-[3.6rem]">
+                <CutReveal delay={90}>
+                  About<span className="text-[hsl(var(--oxblood))]">.</span>
+                </CutReveal>
+              </h2>
+            </div>
+            <Reveal delay={120} className="order-4 col-span-12">
+              <dl className="border-b border-[hsl(var(--ink)/0.18)] md:mt-10">
                 {FACTS.map(([label, value]) => (
-                  <div key={label} className="border-t border-[hsl(var(--ink)/0.18)] py-4">
+                  <div key={label} className="border-t border-[hsl(var(--ink)/0.18)] py-3 md:py-4">
                     <dt className="smallcaps text-[hsl(var(--muted-warm))]">{label}</dt>
-                    <dd className="serif mt-1 text-lg leading-snug">{value}</dd>
+                    <dd className="serif mt-1 text-base leading-snug md:text-lg">{value}</dd>
                   </div>
                 ))}
               </dl>
             </Reveal>
           </div>
 
-          {/* Portrait */}
-          <Reveal as="figure" delay={100} className="col-span-12 flex h-full flex-col md:col-span-4">
-            <div className="min-h-[30rem] flex-1 overflow-hidden bg-[hsl(var(--paper-deep))]">
+          {/* Portrait — half height on a phone, where 30rem is most of a screen */}
+          <Reveal as="figure" delay={100} className="order-2 col-span-12 flex h-full flex-col md:col-span-4">
+            <div className="min-h-[17rem] flex-1 overflow-hidden bg-[hsl(var(--paper-deep))] md:min-h-[30rem]">
               <img
                 src="/lily-portrait.webp"
                 alt="Black-and-white studio portrait of Lily Reese"
-                className="h-full min-h-[30rem] w-full object-cover"
+                className="h-full min-h-[17rem] w-full object-cover md:min-h-[30rem]"
                 loading="lazy"
               />
             </div>
           </Reveal>
 
           {/* Bio */}
-          <div className="col-span-12 md:col-span-5">
+          <div className="order-3 col-span-12 md:col-span-5">
             <Reveal delay={160}>
-              <div className="serif space-y-6 text-xl leading-relaxed text-[hsl(var(--ink-soft))] md:text-[1.35rem] md:leading-relaxed">
+              <div className="serif space-y-5 text-lg leading-relaxed text-[hsl(var(--ink-soft))] md:space-y-6 md:text-[1.35rem] md:leading-relaxed">
                 {PARAGRAPHS.map((text, i) => {
                   if (i === 0) {
                     const [firstWord, ...rest] = text.split(" ");

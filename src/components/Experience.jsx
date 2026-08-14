@@ -16,7 +16,7 @@ const ROLES = [
   },
   {
     year: "2025",
-    role: "Editorial Lead, Copy Editor & Writer",
+    role: "Director, Editorial Lead, Copy Editor & Writer",
     org: "Ascend Magazine",
     location: "Eugene, OR",
     range: "Nov 2025 – Present",
@@ -79,9 +79,9 @@ const ROLES = [
 ];
 
 const STATS = [
-  ["Bylines & Edits", "6 publications"],
+  ["Bylines & Edits", "5 publications"],
   ["Focus", "People · Place · Sustainability"],
-  ["Editing", "Ascend · Align"],
+  ["Editing", "Ascend"],
 ];
 
 function TimelineEntry({ entry, showYear }) {
@@ -142,9 +142,6 @@ export default function Experience() {
           <h2 className="display text-[2.9rem] md:text-[4.2rem]">
             <CutReveal delay={90}>Experience</CutReveal>
           </h2>
-          <Reveal as="p" delay={170} className="serif max-w-md text-lg text-[hsl(var(--ink-soft))] md:text-right">
-            A vertical record — newest at the top, oldest at the foot of the page.
-          </Reveal>
         </div>
         <Reveal delay={230} className="rule mt-8" />
 
@@ -168,8 +165,10 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* Sticky aside */}
-          <div className="col-span-12 md:col-span-4">
+          {/* Sticky aside — desktop only. On a phone it can't stick to
+              anything, so the photo and stat box just land at the foot of the
+              timeline as two more things to scroll past. */}
+          <div className="hidden md:col-span-4 md:block">
             <Reveal delay={150} className="md:sticky md:top-24">
               <figure className="relative overflow-hidden bg-[hsl(var(--paper-deep))]">
                 <div className="aspect-[3/4]">
@@ -197,8 +196,6 @@ export default function Experience() {
                   </span>
                 </figcaption>
               </figure>
-              <p className="smallcaps mt-3 text-[hsl(var(--muted-warm))]">Fig. 2 — April 2026</p>
-
               <dl className="mt-4 border border-[hsl(var(--ink)/0.25)]">
                 {STATS.map(([label, value], i) => (
                   <div
