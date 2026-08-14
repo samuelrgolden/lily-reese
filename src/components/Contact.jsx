@@ -75,8 +75,10 @@ export default function Contact() {
         <div className="rule-strong" />
 
         <div className="grid grid-cols-12 gap-x-6 gap-y-10 py-10 md:gap-x-10 md:py-12">
-          {/* Photo */}
-          <Reveal as="figure" className="col-span-12 md:col-span-4">
+          {/* Photo. Ordered under the colophon on a phone — stacked, it sat
+              between the heading and the addresses, which is the one thing
+              anyone came to this section for. Desktop keeps it on the left. */}
+          <Reveal as="figure" className="order-2 col-span-12 md:order-none md:col-span-4">
             <div className="aspect-[4/5] overflow-hidden bg-[hsl(var(--paper-deep))]">
               <img
                 src="/lily-on-assignment.webp"
@@ -91,7 +93,7 @@ export default function Contact() {
           </Reveal>
 
           {/* Colophon */}
-          <div className="col-span-12 md:col-span-8">
+          <div className="order-1 col-span-12 md:order-none md:col-span-8">
             <Reveal>
               <p className="smallcaps text-[hsl(var(--muted-warm))]">Section V</p>
             </Reveal>

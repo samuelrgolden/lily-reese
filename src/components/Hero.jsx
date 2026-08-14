@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Reveal from "./Reveal.jsx";
 import CutReveal from "./CutReveal.jsx";
 import useTilt from "./useTilt.js";
@@ -52,7 +53,12 @@ function RotatingWord() {
   }, []);
 
   return (
-    <span className="inline-grid whitespace-nowrap align-baseline text-[hsl(var(--ink))]">
+    /* text-left is load-bearing, not decoration: the cell is as wide as
+       "Storyteller." always, so under the centred mobile hero a short word gets
+       centred in that cell and half the slack shows up as a gap after "a".
+       Anchoring to the start puts all of it after the word, at the end of the
+       line, where there's nothing to push against. */
+    <span className="inline-grid whitespace-nowrap text-left align-baseline text-[hsl(var(--ink))]">
       {/* invisible stack reserves the width of the longest word */}
       {WORDS.map((word) => (
         <span key={word} className="invisible col-start-1 row-start-1" aria-hidden="true">
@@ -107,15 +113,18 @@ export default function Hero() {
 
             <Reveal delay={200}>
               <p className="smallcaps mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[hsl(var(--muted-warm))] md:justify-start">
-                <span>
+                {/* On a phone the line keeps only where she reports from — the
+                    byline is redundant under a name this size, and the rules
+                    have nothing left to separate. */}
+                <span className="hidden md:block">
                   By <span className="text-[hsl(var(--ink))]">Lily Reese</span>
                 </span>
-                <span className="h-3.5 w-px bg-[hsl(var(--ink)/0.25)]" aria-hidden="true" />
+                <span className="hidden h-3.5 w-px bg-[hsl(var(--ink)/0.25)] md:block" aria-hidden="true" />
                 <span>
                   Reporting from <span className="text-[hsl(var(--ink))]">Eugene, OR</span>
                 </span>
-                <span className="h-3.5 w-px bg-[hsl(var(--ink)/0.25)]" aria-hidden="true" />
-                <span>Honored — ACP 2025</span>
+                <span className="hidden h-3.5 w-px bg-[hsl(var(--ink)/0.25)] md:block" aria-hidden="true" />
+                <span className="hidden md:block">Honored — ACP 2025</span>
               </p>
             </Reveal>
 
@@ -126,7 +135,7 @@ export default function Hero() {
                     is inert and the arrow is just a static ↓. */}
                 <a
                   href="#about"
-                  className="group dl lift inline-flex items-center gap-2 smallcaps text-[hsl(var(--ink))] hover:text-[hsl(var(--oxblood))]"
+                  className="group dl lift order-2 inline-flex items-center gap-2 smallcaps text-[hsl(var(--ink))] hover:text-[hsl(var(--oxblood))] md:order-none"
                 >
                   Continue reading
                   <span aria-hidden="true" className="dl-arrow">
@@ -134,15 +143,17 @@ export default function Hero() {
                   </span>
                 </a>
 
-                {/* Relocated from the nav. The hover:bg utility is what still
-                    runs on touch and under the breakpoint; .btn-flow overrides
-                    it on desktop with the disc fill. */}
-                <a
-                  href="#contact"
-                  className="smallcaps lift btn-flow whitespace-nowrap rounded-full border border-[hsl(var(--ink))] px-5 py-2.5 [--flow:hsl(var(--oxblood))] hover:bg-[hsl(var(--ink))] hover:text-[hsl(var(--paper))]"
+                {/* Relocated from the nav, and routed to the standalone contact
+                    page rather than the anchor at the foot of this one. The
+                    hover:bg utility is what still runs on touch and under the
+                    breakpoint; .btn-flow overrides it on desktop with the disc
+                    fill. */}
+                <Link
+                  to="/contact"
+                  className="smallcaps lift btn-flow order-1 whitespace-nowrap rounded-full border border-[hsl(var(--ink))] px-5 py-2.5 [--flow:hsl(var(--oxblood))] hover:bg-[hsl(var(--ink))] hover:text-[hsl(var(--paper))] md:order-none"
                 >
                   Get in touch
-                </a>
+                </Link>
               </div>
             </Reveal>
           </div>
