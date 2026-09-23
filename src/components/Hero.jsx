@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "Your Pet Has Been Studying You",
+  title: "Where Art Meets the Vine",
   pub: "Eugene Weekly",
-  date: "August 13, 2026",
-  tag: "Pets",
-  img: "/work/pet-study.webp",
-  href: "https://eugeneweekly.com/2026/08/13/your-pet-has-been-studying-you/",
+  date: "September 17, 2026",
+  tag: "Art",
+  img: "/work/art-meets-vine.webp",
+  href: "https://eugeneweekly.com/2026/09/17/where-art-meets-the-vine/",
 };
 
 function ArrowUpRight({ className = "" }) {

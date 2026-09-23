@@ -3,13 +3,67 @@
    inside Work.jsx until the second consumer arrived; two copies of a list this
    long would have drifted the first time a piece was added.
 
-   Ordered for the home collage's rhythm: landscape and portrait images
-   alternate, landscapes on the even slots and portraits on the odd ones. To add
-   a piece, drop it into the stream matching its image's orientation.
+   This order is the All Work page's order; newest pieces go at the top. The
+   home collage picks its own five from SELECTED at the bottom of the file.
 
    `size` is the image's [width, height] in pixels — the compression script
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
+  {
+    title: "Where Art Meets the Vine",
+    pub: "Eugene Weekly",
+    date: "Sep 17, 2026",
+    tags: ["Art", "Wine"],
+    description:
+      "A seven-foot Jim Dine bronze first spotted at the Venice Biennale now stands at Chaos Vineyard, the south Eugene property where Stephen and Michelle McKeon grow grapes among sculpture.",
+    href: "https://eugeneweekly.com/2026/09/17/where-art-meets-the-vine/",
+    img: "/work/art-meets-vine.webp",
+    size: [1200, 800],
+  },
+  {
+    title: "Making Room",
+    pub: "Eugene Weekly",
+    date: "Sep 10, 2026",
+    tags: ["Community", "Housing"],
+    description:
+      "Three friends, decades apart in age, share a quarter acre in Santa Clara — and a house where roommates turned into family.",
+    href: "https://eugeneweekly.com/2026/09/10/making-room/",
+    img: "/work/making-room.webp",
+    size: [1200, 800],
+  },
+  {
+    title: "Herencia Hispana and Springfield’s The Block Party Return",
+    pub: "Eugene Weekly",
+    date: "Sep 10, 2026",
+    tags: ["Community", "Culture"],
+    description:
+      "Springfield throws two parties in one Saturday: a 12-block street festival and Herencia Hispana’s El Grito celebration at City Hall plaza.",
+    href: "https://eugeneweekly.com/2026/09/10/herencia-hispana-and-springfields-the-block-party-return/",
+    img: "/work/block-party.webp",
+    size: [1200, 800],
+  },
+  {
+    title: "First Friday ArtWalk Gets a Fiesta",
+    pub: "Eugene Weekly",
+    date: "Sep 3, 2026",
+    tags: ["Art", "Culture"],
+    description:
+      "Piñatas, lotería and Aztec dancers: the 12th annual Fiesta Cultural takes over September’s First Friday ArtWalk.",
+    href: "https://eugeneweekly.com/2026/09/03/first-friday-artwalk-gets-a-fiesta/",
+    img: "/work/artwalk-fiesta.webp",
+    size: [1200, 800],
+  },
+  {
+    title: "More Than Skin Deep",
+    pub: "Eugene Weekly",
+    date: "Aug 27, 2026",
+    tags: ["Health", "Art"],
+    description:
+      "At Varga Medical Art, a medical tattoo artist restores what breast cancer took — and helps survivors recognize themselves in the mirror again.",
+    href: "https://eugeneweekly.com/2026/08/27/more-than-skin-deep/",
+    img: "/work/skin-deep.webp",
+    size: [1200, 800],
+  },
   {
     title: "Your Pet Has Been Studying You",
     pub: "Eugene Weekly",
@@ -17,7 +71,6 @@ export const ARTICLES = [
     tags: ["Pets", "Culture"],
     description:
       "Oregon State’s Human-Animal Interaction Lab on what pets learn about us — the routines they read, the moods they track, and why the attachment runs both ways.",
-    featured: false,
     href: "https://eugeneweekly.com/2026/08/13/your-pet-has-been-studying-you/",
     img: "/work/pet-study.webp",
     size: [1200, 779],
@@ -29,7 +82,6 @@ export const ARTICLES = [
     tags: ["Culture", "Community"],
     description:
       "Junction City’s Scandinavian Festival gives each of its four days to a different Nordic country — blacksmithing, embroidery, traditional dress, and four days of free admission.",
-    featured: false,
     href: "https://eugeneweekly.com/2026/08/13/skal-yeah/",
     img: "/work/skal-yeah.webp",
     size: [1200, 779],
@@ -41,7 +93,6 @@ export const ARTICLES = [
     tags: ["Media", "Community"],
     description:
       "The Springfield paper shuts its doors after 117 years, undone by SBA loan debt, falling subscriptions, and advertising that never came back after the pandemic.",
-    featured: false,
     href: "https://eugeneweekly.com/2026/08/11/the-chronicle-closes-after-117-years/",
     img: "/work/chronicle-closes.webp",
     size: [1200, 779],
@@ -53,7 +104,6 @@ export const ARTICLES = [
     tags: ["Food", "Profiles"],
     description:
       "“Beccofino” means picky eater — the childhood nickname Maurizio Bianchi now paints on a red food truck serving handmade seasonal pasta.",
-    featured: false,
     href: "https://eugeneweekly.com/2026/07/23/whats-in-a-nickname-2/",
     img: "/work/beccofino.webp",
     size: [1200, 779],
@@ -226,21 +276,16 @@ export const ARTICLES = [
     tags: ["Climate", "Community", "Features"],
     description:
       "Inside Lost Valley, an intentional community grappling with what it really costs to live sustainably.",
-    featured: false,
     href: "https://dailyemerald.com/185072/features/the-sustainability-dilemma-at-the-heart-of-community-living/",
     img: "/work/sustainability-dilemma.webp",
     size: [1200, 800],
   },
-  /* SOJC alumni profiles — the running series for the school's newsroom.
-     `featured: false` keeps them off the home collage, which is a curated wall,
-     while the All Work page still lists them. Four profiles of the same shape
-     would flatten the collage's variety without adding to what it argues. */
+  /* SOJC alumni profiles — the running series for the school's newsroom. */
   {
     title: "SOJC Alum Is Building the Future of Empathic AI",
     pub: "SOJC",
     date: "Dec 9, 2025",
     tags: ["Profiles", "Tech"],
-    featured: false,
     description:
       "Alec Freudenstein’s capstone virtual financial advisor, Penny, led him to Hume AI — a firm building machines that read feeling.",
     href: "https://journalism.uoregon.edu/news/alec-freudenstein-future-of-empathic-ai",
@@ -252,7 +297,6 @@ export const ARTICLES = [
     pub: "SOJC",
     date: "Jul 23, 2025",
     tags: ["Profiles", "Campus"],
-    featured: false,
     description:
       "Francesca Fontana ’17 turned a love of writing into a Wall Street Journal beat, and a weekly podcast translating the markets for everyone else.",
     href: "https://journalism.uoregon.edu/news/francesca-fontana-financial-reporting",
@@ -264,7 +308,6 @@ export const ARTICLES = [
     pub: "SOJC",
     date: "Nov 17, 2025",
     tags: ["Profiles", "Media"],
-    featured: false,
     description:
       "Sara Roth ’15 on why impact now means meeting readers wherever they already are — TikTok, newsletters, or the radio.",
     href: "https://journalism.uoregon.edu/news/sara-roth-audience-engagement",
@@ -276,7 +319,6 @@ export const ARTICLES = [
     pub: "SOJC",
     date: "Oct 16, 2025",
     tags: ["Profiles", "Sports"],
-    featured: false,
     description:
       "From managing talent at Rogers & Cowan PMK to leading women’s sports campaigns at Berk — a PRNEWS Rising Star’s route out of Allen Hall.",
     href: "https://journalism.uoregon.edu/news/hannah-oakley-entertainment-and-sports-pr",
@@ -289,7 +331,6 @@ export const ARTICLES = [
     date: "May 12, 2025",
     tags: ["Arts", "Community"],
     description: "How a network of small companies and stubborn artists keep live performance going.",
-    featured: false,
     href: "https://dailyemerald.com/185015/features/the-partnerships-keeping-eugenes-theater-alive/",
     img: "/work/eugene-theater.webp",
     size: [1200, 900],
@@ -302,7 +343,6 @@ export const ARTICLES = [
     kind: "class",
     description:
       "Inside EPIC Healing Eugene with a licensed psilocybin facilitator who guides clients under Oregon’s Measure 109.",
-    featured: false,
     href: "https://lilylreese.wixsite.com/lily-reese-portfol-1/copy-of-public-meeting",
     img: "/work/askins-profile.webp",
     size: [1000, 489],
@@ -313,7 +353,6 @@ export const ARTICLES = [
     date: "Jun 5, 2024",
     tags: ["Climate", "Community", "Food"],
     description: "A community garden in Eugene becomes a study in what shared land can teach.",
-    featured: false,
     href: "https://dailyemerald.com/184070/features/growing-the-grove-garden-the-need-for-intentional-communities/",
     img: "/work/grove-garden.webp",
     size: [1080, 720],
@@ -324,18 +363,24 @@ export const ARTICLES = [
     date: "Jun 4, 2024",
     tags: ["Health", "Features"],
     description: "Inside Oregon’s first legal psilocybin services, where ritual and regulation meet.",
-    featured: false,
     href: "https://dailyemerald.com/184064/ethos/embracing-change-exploring-alternative-psilocybin-treatments-in-eugene/",
     img: "/work/psilocybin.webp",
     size: [1080, 720],
   },
 ];
 
-/* The home collage is a curated wall; the All Work page is the complete file.
-   Opt-out rather than opt-in — a new piece belongs on the front page unless
-   there's a reason it doesn't, and an opt-in flag would mean every future
-   addition silently fails to appear there. */
-export const FEATURED = ARTICLES.filter((a) => a.featured !== false);
+/* The home collage is Lily's own pick of five, in the order she chose them;
+   the All Work page is the complete file. Listed by href so the choice lives in
+   one place and can't drift from the entries themselves. */
+const SELECTED = [
+  "https://news.uoregon.edu/audio-magazine-class-gives-voice-oakridge-residents",
+  "https://eugeneweekly.com/2026/08/27/more-than-skin-deep/",
+  "https://issuu.com/ascenduomagazine/docs/ascend_issue_2/66",
+  "https://dailyemerald.com/185072/features/the-sustainability-dilemma-at-the-heart-of-community-living/",
+  "https://eugeneweekly.com/2026/09/17/where-art-meets-the-vine/",
+];
+
+export const FEATURED = SELECTED.map((href) => ARTICLES.find((a) => a.href === href));
 
 /* "Recent" is derived at render time rather than stored as a flag on each
    entry — a hand-set flag is true until someone remembers to clear it, and

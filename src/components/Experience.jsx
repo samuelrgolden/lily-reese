@@ -79,7 +79,7 @@ const ROLES = [
 ];
 
 const STATS = [
-  ["Bylines & Edits", "5 publications"],
+  ["Bylines & Edits", "6 publications"],
   ["Focus", "People · Place · Sustainability"],
   ["Editing", "Ascend"],
 ];
