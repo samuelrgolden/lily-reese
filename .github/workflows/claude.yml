@@ -1,0 +1,81 @@
+name: Claude
+
+# Lets Lily update the site by writing to Claude in a GitHub issue. Claude makes
+# the change on its own branch and replies with a link to open a pull request;
+# Netlify builds a preview of that pull request, and merging it publishes.
+#
+# Only people with write access to this repository can start a run — the action
+# checks that itself and refuses everyone else.
+
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  pull_request_review:
+    types: [submitted]
+
+# One run at a time per issue or pull request, so two quick comments queue up
+# instead of racing each other onto the same branch.
+concurrency:
+  group: claude-${{ github.event.issue.number || github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    # sender.type keeps Claude's own comments from starting a run.
+    if: |
+      github.event.sender.type == 'User' && (
+        (github.event_name == 'issues' && (contains(github.event.issue.body, '@claude') || contains(github.event.issue.title, '@claude'))) ||
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude'))
+      )
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install site dependencies
+        run: npm ci
+
+      # Pillow is what scripts/to_webp.py compresses images with.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Pillow
+        run: pip install Pillow
+
+      - name: Run Claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          # Runs on Sam's Claude subscription, via a token from `claude setup-token`.
+          # To bill a Claude API key instead, replace the line below with:
+          # anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+
+          # Shell commands are off unless listed here. These are the ones the
+          # recipes in CLAUDE.md need: build the site, compress an image, and
+          # read an article page for its headline and lead photo.
+          claude_args: |
+            --model claude-sonnet-5-5
+            --allowedTools "WebFetch,Bash(npm ci),Bash(npm run build),Bash(python3 scripts/to_webp.py:*),Bash(ls:*)"
