@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "Elevate Your Sleep",
+  title: "Joint Effort",
   pub: "Eugene Weekly",
   date: "October 1, 2026",
-  tag: "Health",
-  img: "/work/elevate-sleep.webp",
-  href: "https://eugeneweekly.com/2026/10/01/elevate-your-sleep/",
+  tag: "Culture",
+  img: "/work/joint-effort.webp",
+  href: "https://eugeneweekly.com/2026/10/01/joint-effort/",
 };
 
 function ArrowUpRight({ className = "" }) {
