@@ -10,6 +10,17 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "Climbing Beyond Limits",
+    pub: "Eugene Weekly",
+    date: "Oct 8, 2026",
+    tags: ["Health", "Community"],
+    description:
+      "Members of the Oregon Parkinson’s Warriors Foundation climb an Oregon white oak with Canopy Connections Tree Climbing, and one climber’s rigging is reworked mid-session so she can keep going up.",
+    href: "https://eugeneweekly.com/2026/10/08/climbing-beyond-limits/",
+    img: "/work/climbing-beyond-limits.webp",
+    size: [1200, 800],
+  },
+  {
     title: "Elevate Your Sleep",
     pub: "Eugene Weekly",
     date: "Oct 1, 2026",
