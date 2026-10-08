@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "Joint Effort",
+  title: "Climbing Beyond Limits",
   pub: "Eugene Weekly",
-  date: "October 1, 2026",
-  tag: "Culture",
-  img: "/work/joint-effort.webp",
-  href: "https://eugeneweekly.com/2026/10/01/joint-effort/",
+  date: "October 8, 2026",
+  tag: "Health",
+  img: "/work/climbing-beyond-limits.webp",
+  href: "https://eugeneweekly.com/2026/10/08/climbing-beyond-limits/",
 };
 
 function ArrowUpRight({ className = "" }) {
