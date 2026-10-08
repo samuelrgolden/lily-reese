@@ -10,6 +10,17 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "Joint Effort",
+    pub: "Eugene Weekly",
+    date: "Oct 1, 2026",
+    tags: ["Culture", "Essay"],
+    description:
+      "When her 56-year-old father took up pandemic gardening, the whole family got drafted into growing cannabis on the patio — trimming, drying and pest control included.",
+    href: "https://eugeneweekly.com/2026/10/01/joint-effort/",
+    img: "/work/joint-effort.webp",
+    size: [1200, 779],
+  },
+  {
     title: "Where Art Meets the Vine",
     pub: "Eugene Weekly",
     date: "Sep 17, 2026",
