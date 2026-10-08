@@ -20,7 +20,14 @@ Requests usually come from Lily herself, through a GitHub issue. She is a writer
   2. Wait a minute or two for a comment saying **Your preview is ready** to appear on that page, and
      open its link to see the change.
   3. Happy with it? Click **Merge pull request**, then **Confirm merge**. It's live a minute later.
-  4. Want something different? Leave a comment there starting with `@claude`.
+  4. Want something different? Leave a comment starting with `@claude`, on this page or that one —
+     either works.
+- **Follow-ups on an issue.** Every comment on an issue puts you on a new branch, but the workflow
+  has already folded in the branch from your last reply on that issue, so the files in front of you
+  include that earlier work (`git log --oneline origin/main..HEAD` lists it). Build on it; never
+  redo it. Your new branch replaces the old one: tell her to use the **Create PR** link in this
+  newest reply, and that a pull request she opened from an earlier reply can be ignored. If the
+  earlier work is not there, it was already published or she closed it — work from what you have.
 
 ## Commands
 

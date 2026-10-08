@@ -42,10 +42,50 @@ jobs:
       id-token: write
       actions: read
     steps:
+      # Full history and every branch, so the next step can see Claude's earlier
+      # branches and merge one cleanly.
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
-          fetch-depth: 1
+          fetch-depth: 0
+
+      # Every comment on an issue starts Claude on a brand-new branch cut from
+      # main, which would leave behind whatever it did for that issue last time
+      # ("add these five articles", then "make the second one the dispatch").
+      # Fold the earlier branch into the local main first; the action cuts its
+      # new branch from that, so Claude starts where it stopped. Nothing here is
+      # pushed. Comments on a pull request don't need this — there the action
+      # keeps working on the pull request's own branch.
+      - name: Carry over earlier work on this issue
+        if: github.event.issue.number && !github.event.issue.pull_request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          earlier="$(git branch -r --list "origin/claude/issue-${ISSUE}-*" --format='%(refname:short)' | sort | tail -n 1)"
+          if [ -z "$earlier" ]; then
+            echo "No earlier branch for issue #${ISSUE}; starting from main."
+            exit 0
+          fi
+          if git merge-base --is-ancestor "$earlier" origin/main; then
+            echo "${earlier} is already part of main; starting from main."
+            exit 0
+          fi
+
+          # A pull request that was merged or closed has been dealt with. Closing
+          # one without merging means "I don't want this", so don't bring it back.
+          state="$(gh pr list --repo "$GITHUB_REPOSITORY" --head "${earlier#origin/}" --state all --json state --jq '.[0].state // ""')"
+          if [ "$state" = "MERGED" ] || [ "$state" = "CLOSED" ]; then
+            echo "${earlier} has a ${state} pull request; starting from main."
+            exit 0
+          fi
+
+          if git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" merge --no-edit "$earlier"; then
+            echo "Carried over ${earlier}."
+          else
+            git merge --abort
+            echo "::warning::Could not carry over ${earlier} (it conflicts with main); starting from main."
+          fi
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -78,4 +118,4 @@ jobs:
           # read an article page for its headline and lead photo.
           claude_args: |
             --model claude-sonnet-5-5
-            --allowedTools "WebFetch,Bash(npm ci),Bash(npm run build),Bash(python3 scripts/to_webp.py:*),Bash(ls:*)"
+            --allowedTools "WebFetch,Bash(npm ci),Bash(npm run build),Bash(python3 scripts/to_webp.py:*),Bash(ls:*),Bash(git status:*),Bash(git diff:*),Bash(git log:*)"
