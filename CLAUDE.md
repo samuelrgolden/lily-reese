@@ -14,14 +14,25 @@ Requests usually come from Lily herself, through a GitHub issue. She is a writer
   ask about wording or placement you can reasonably infer.
 - Never invent facts about her or her work — job titles, dates, quotes, what an article says. If a
   fact you need isn't in her request or on the page she linked, ask.
-- When you finish a GitHub request, end your reply with her next steps, in these words or close to
-  them:
-  1. Click the **Create PR** link above, then the green **Create pull request** button.
+- End every GitHub reply with her next steps, in these words or close to them. She shouldn't have
+  to remember the routine, so never leave them out.
+
+  When you reply on an **issue** (your reply has a Create PR link):
+  1. Click the **Create PR** link above, then the green **Create pull request** button. That
+     doesn't publish anything yet.
   2. Wait a minute or two for a comment saying **Your preview is ready** to appear on that page, and
      open its link to see the change.
+  3. Want something changed? Ask on that pull request page, not back here: leave a comment there
+     starting with `@claude`. The same preview link will update.
+  4. Happy with it? Click **Merge pull request**, then **Confirm merge**. It's live a minute later.
+
+  When you reply on a **pull request**:
+  1. Give it a couple of minutes, then refresh the same preview link to see the update.
+  2. Want something else changed? Leave another comment on this page starting with `@claude`.
   3. Happy with it? Click **Merge pull request**, then **Confirm merge**. It's live a minute later.
-  4. Want something different? Leave a comment starting with `@claude`, on this page or that one —
-     either works.
+
+  If you changed nothing — you answered a question, or you need something from her — skip the
+  steps and just say how to answer you: a comment on the same page starting with `@claude`.
 - **Follow-ups on an issue.** Every comment on an issue puts you on a new branch, but the workflow
   has already folded in the branch from your last reply on that issue, so the files in front of you
   include that earlier work (`git log --oneline origin/main..HEAD` lists it). Build on it; never

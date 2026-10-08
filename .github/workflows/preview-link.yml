@@ -45,6 +45,8 @@ jobs:
 
           gh pr comment "$PR" --repo "$REPO" --body "$first
 
-          This is the whole site with this change, at a temporary address — the real site hasn't changed yet. If you ask for more changes here, give it a couple of minutes and refresh the same link.
+          This is the whole site with this change, at a temporary address — the real site hasn't changed yet.
 
-          When it looks right, click **Merge pull request** below, then **Confirm merge**."
+          **Want something changed?** Ask right here: leave a comment on this page starting with \`@claude\`. Give it a couple of minutes, then refresh the same link.
+
+          **Happy with it?** Click **Merge pull request** below, then **Confirm merge**."
