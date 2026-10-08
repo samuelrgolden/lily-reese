@@ -17,8 +17,8 @@ Requests usually come from Lily herself, through a GitHub issue. She is a writer
 - When you finish a GitHub request, end your reply with her next steps, in these words or close to
   them:
   1. Click the **Create PR** link above, then the green **Create pull request** button.
-  2. Wait about a minute for Netlify to post a **Deploy Preview** link on that page, and open it to
-     see the change.
+  2. Wait a minute or two for a comment saying **Your preview is ready** to appear on that page, and
+     open its link to see the change.
   3. Happy with it? Click **Merge pull request**, then **Confirm merge**. It's live a minute later.
   4. Want something different? Leave a comment there starting with `@claude`.
 

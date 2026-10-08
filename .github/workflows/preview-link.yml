@@ -1,0 +1,50 @@
+name: Preview link
+
+# Netlify builds a preview of every pull request but only reports it as check
+# marks whose links lead into the Netlify dashboard, which Lily can't open. This
+# posts the preview's public address on the pull request as a plain comment.
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  comment:
+    # A pull request from a fork gets a read-only token, so the comment would
+    # fail; only this repository's own branches get one.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Wait for the preview, then post its address
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          url="https://deploy-preview-${PR}--lily-reese.netlify.app"
+
+          # The address answers 404 until Netlify finishes building, so hold the
+          # comment until the link works — up to five minutes, then post anyway.
+          ready=""
+          for _ in $(seq 1 30); do
+            if [ "$(curl -s -o /dev/null -w '%{http_code}' "$url")" = "200" ]; then
+              ready=1
+              break
+            fi
+            sleep 10
+          done
+
+          if [ -n "$ready" ]; then
+            first="**Your preview is ready:** $url"
+          else
+            first="**Your preview is still building.** Try this link in a few minutes: $url"
+          fi
+
+          gh pr comment "$PR" --repo "$REPO" --body "$first
+
+          This is the whole site with this change, at a temporary address — the real site hasn't changed yet. If you ask for more changes here, give it a couple of minutes and refresh the same link.
+
+          When it looks right, click **Merge pull request** below, then **Confirm merge**."
