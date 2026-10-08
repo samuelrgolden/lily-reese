@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "Where Art Meets the Vine",
+  title: "Joint Effort",
   pub: "Eugene Weekly",
-  date: "September 17, 2026",
-  tag: "Art",
-  img: "/work/art-meets-vine.webp",
-  href: "https://eugeneweekly.com/2026/09/17/where-art-meets-the-vine/",
+  date: "October 1, 2026",
+  tag: "Culture",
+  img: "/work/joint-effort.webp",
+  href: "https://eugeneweekly.com/2026/10/01/joint-effort/",
 };
 
 function ArrowUpRight({ className = "" }) {
