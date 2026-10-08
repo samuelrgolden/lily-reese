@@ -10,6 +10,61 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "Elevate Your Sleep",
+    pub: "Eugene Weekly",
+    date: "Oct 1, 2026",
+    tags: ["Health", "Culture"],
+    description:
+      "Lily and co-writer Grace Mangali spend a Sunday night with three journalist friends testing cannabis sleep aids — Wildberry Pearls and two brands of gummies — to see who is actually ready for bed by 10 pm.",
+    href: "https://eugeneweekly.com/2026/10/01/elevate-your-sleep/",
+    img: "/work/elevate-sleep.webp",
+    size: [1200, 779],
+  },
+  {
+    title: "Joint Effort",
+    pub: "Eugene Weekly",
+    date: "Oct 1, 2026",
+    tags: ["Culture", "Community"],
+    description:
+      "When her dad took up pandemic gardening, the whole family got drafted into growing cannabis on the patio — and learned that backyard buds are closer to a small farm than a relaxing hobby.",
+    href: "https://eugeneweekly.com/2026/10/01/joint-effort/",
+    img: "/work/joint-effort.webp",
+    size: [1200, 779],
+  },
+  {
+    title: "Uke Can’t Miss It",
+    pub: "Eugene Weekly",
+    date: "Oct 1, 2026",
+    tags: ["Arts", "Culture"],
+    description:
+      "Feng E, the 19-year-old ukulele player from Taiwan who went viral as a child, plays a solo show at WOW Hall ahead of his first all-original album, Grand Tour.",
+    href: "https://eugeneweekly.com/2026/10/01/uke-cant-miss-it/",
+    img: "/work/feng-e.webp",
+    size: [1200, 779],
+  },
+  {
+    title: "SOJC Alum Directs Dunkin’s Kylie Jenner Campaign",
+    pub: "SOJC",
+    date: "Sep 30, 2026",
+    tags: ["Profiles", "Campus"],
+    description:
+      "Jake Wilmink ’19, brand director at Artists Equity, oversees the Dunkin’ account and recently directed the “King Kylie’s Boardroom” ad.",
+    href: "https://journalism.uoregon.edu/news/jake-wilmink-advertising",
+    img: "/work/jake-wilmink.webp",
+    size: [600, 600],
+  },
+  {
+    title: "The Little Bus That Could",
+    pub: "Eugene Weekly",
+    date: "Sep 24, 2026",
+    tags: ["Community", "Profiles"],
+    description:
+      "Stella Arrieta started Steezy Bus in 2023 as a vintage clothing shop in a converted blue school bus; it now books shopping and styling appointments from a warehouse and still rolls out for pop-ups across Lane County.",
+    href: "https://eugeneweekly.com/2026/09/24/the-little-bus-that-could/",
+    img: "/work/little-bus.webp",
+    size: [1200, 779],
+  },
+  {
     title: "Where Art Meets the Vine",
     pub: "Eugene Weekly",
     date: "Sep 17, 2026",
