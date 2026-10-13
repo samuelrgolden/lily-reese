@@ -10,6 +10,17 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "Father and Son Find Their Stories in SOJC Master’s Program",
+    pub: "SOJC",
+    date: "Oct 12, 2026",
+    tags: ["Profiles", "Campus"],
+    description:
+      "Kurt and McKain Williams are both in the Multimedia Storytelling Master’s program — McKain is making a film about tufted puffin conservation, Kurt is documenting the tensions over sea lions on the Oregon coast.",
+    href: "https://journalism.uoregon.edu/news/mckain-kurt-williams-storytelling-masters",
+    img: "/work/williams-storytelling-masters.webp",
+    size: [1200, 675],
+  },
+  {
     title: "Climbing Beyond Limits",
     pub: "Eugene Weekly",
     date: "Oct 8, 2026",
