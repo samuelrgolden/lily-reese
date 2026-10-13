@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "Climbing Beyond Limits",
-  pub: "Eugene Weekly",
-  date: "October 8, 2026",
-  tag: "Health",
-  img: "/work/climbing-beyond-limits.webp",
-  href: "https://eugeneweekly.com/2026/10/08/climbing-beyond-limits/",
+  title: "Father and Son Find Their Stories in SOJC Master’s Program",
+  pub: "SOJC",
+  date: "October 12, 2026",
+  tag: "Profiles",
+  img: "/work/williams-storytelling-masters.webp",
+  href: "https://journalism.uoregon.edu/news/mckain-kurt-williams-storytelling-masters",
 };
 
 function ArrowUpRight({ className = "" }) {
