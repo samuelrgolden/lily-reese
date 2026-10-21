@@ -10,6 +10,17 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "Here We Go Again",
+    pub: "Eugene Weekly",
+    date: "Oct 20, 2026",
+    tags: ["Policy", "Community"],
+    description:
+      "Incumbent Heather Buch and Jake Pelroy head to a Nov. 3 runoff for Lane County’s District 5 commission seat, split over the CleanLane waste facility and whether to spend on crisis teams or law enforcement.",
+    href: "https://eugeneweekly.com/2026/10/20/here-we-go-again/",
+    img: "/work/here-we-go-again.webp",
+    size: [786, 742],
+  },
+  {
     title: "Father and Son Find Their Stories in SOJC Master’s Program",
     pub: "SOJC",
     date: "Oct 12, 2026",

@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "Father and Son Find Their Stories in SOJC Master’s Program",
-  pub: "SOJC",
-  date: "October 12, 2026",
-  tag: "Profiles",
-  img: "/work/williams-storytelling-masters.webp",
-  href: "https://journalism.uoregon.edu/news/mckain-kurt-williams-storytelling-masters",
+  title: "Here We Go Again",
+  pub: "Eugene Weekly",
+  date: "October 20, 2026",
+  tag: "Policy",
+  img: "/work/here-we-go-again.webp",
+  href: "https://eugeneweekly.com/2026/10/20/here-we-go-again/",
 };
 
 function ArrowUpRight({ className = "" }) {
