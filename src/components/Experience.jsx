@@ -27,8 +27,8 @@ const ROLES = [
         range: "May 2026 – Present",
         now: true,
         bullets: [
-          "Led a cross-functional team of designers, editors, reporters, and advertising staff.",
-          "Balanced editorial leadership with hands-on reporting, writing a feature story while overseeing the magazine’s creative and commercial direction.",
+          "Lead a cross-functional team of designers, editors, reporters, and advertising staff.",
+          "Balance editorial leadership with hands-on reporting, writing a feature story while overseeing the magazine’s creative and commercial direction.",
         ],
       },
       {
