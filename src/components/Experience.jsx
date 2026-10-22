@@ -16,16 +16,31 @@ const ROLES = [
   },
   {
     year: "2025",
-    role: "Director, Editorial Lead, Copy Editor & Writer",
     org: "Ascend Magazine",
     location: "Eugene, OR",
     range: "Nov 2025 – Present",
     now: true,
-    bullets: [
-      "Write and edit feature stories highlighting athletes.",
-      "Conduct interviews, research, and fact-checking to ensure depth and accuracy.",
-      "Collaborate on pitches, narrative refinement, and multimedia for print and digital.",
-      "Hold editorial leadership responsibilities and mentor other writers.",
+    // One employer, several roles — newest first, like LinkedIn's grouped view.
+    positions: [
+      {
+        role: "Director",
+        range: "May 2026 – Present",
+        now: true,
+        bullets: [
+          "Lead a cross-functional team of designers, editors, reporters, and advertising staff.",
+          "Balance editorial leadership with hands-on reporting, writing a feature story while overseeing the magazine’s creative and commercial direction.",
+        ],
+      },
+      {
+        role: "Copy Editor",
+        range: "Nov 2025 – Jun 2026",
+        now: false,
+        bullets: [
+          "Write and edit feature stories highlighting athletes.",
+          "Conduct interviews, research, and fact-checking to ensure depth and accuracy.",
+          "Collaborate on pitches, narrative refinement, and multimedia for print and digital.",
+        ],
+      },
     ],
   },
   {
@@ -84,6 +99,21 @@ const STATS = [
   ["Editing", "Ascend"],
 ];
 
+function Bullets({ items }) {
+  return (
+    <ul className="mt-4 space-y-2">
+      {items.map((bullet) => (
+        <li key={bullet} className="serif flex gap-3 text-lg leading-relaxed text-[hsl(var(--ink-soft))]">
+          <span aria-hidden="true" className="shrink-0 text-[hsl(var(--muted-warm))]">
+            —
+          </span>
+          <span>{bullet}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 function TimelineEntry({ entry, showYear }) {
   return (
     <Reveal
@@ -110,21 +140,35 @@ function TimelineEntry({ entry, showYear }) {
             </span>
           )}
         </p>
-        <h3 className="serif mt-3 text-2xl md:text-[1.75rem]">
-          {entry.role} <span className="text-[hsl(var(--muted-warm))]">·</span>{" "}
-          <span className="italic text-[hsl(var(--oxblood))]">{entry.org}</span>
-        </h3>
-        <p className="smallcaps mt-2 text-[hsl(var(--muted-warm))]">{entry.location}</p>
-        <ul className="mt-4 space-y-2">
-          {entry.bullets.map((bullet) => (
-            <li key={bullet} className="serif flex gap-3 text-lg leading-relaxed text-[hsl(var(--ink-soft))]">
-              <span aria-hidden="true" className="shrink-0 text-[hsl(var(--muted-warm))]">
-                —
-              </span>
-              <span>{bullet}</span>
-            </li>
-          ))}
-        </ul>
+        {entry.positions ? (
+          <>
+            <h3 className="serif mt-3 text-2xl italic text-[hsl(var(--oxblood))] md:text-[1.75rem]">{entry.org}</h3>
+            <p className="smallcaps mt-2 text-[hsl(var(--muted-warm))]">{entry.location}</p>
+            {entry.positions.map((pos) => (
+              <div key={pos.role} className="mt-6 border-l border-[hsl(var(--ink)/0.18)] pl-5">
+                <h4 className="serif text-xl md:text-2xl">{pos.role}</h4>
+                <p className="smallcaps mt-1 flex flex-wrap items-center gap-3 text-[hsl(var(--muted-warm))]">
+                  {pos.range}
+                  {pos.now && (
+                    <span className="smallcaps rounded-[0.125rem] bg-[hsl(var(--oxblood-deep))] px-2 py-[0.1875rem] text-[0.55rem] text-[hsl(var(--paper))]">
+                      Now
+                    </span>
+                  )}
+                </p>
+                <Bullets items={pos.bullets} />
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            <h3 className="serif mt-3 text-2xl md:text-[1.75rem]">
+              {entry.role} <span className="text-[hsl(var(--muted-warm))]">·</span>{" "}
+              <span className="italic text-[hsl(var(--oxblood))]">{entry.org}</span>
+            </h3>
+            <p className="smallcaps mt-2 text-[hsl(var(--muted-warm))]">{entry.location}</p>
+            <Bullets items={entry.bullets} />
+          </>
+        )}
       </div>
     </Reveal>
   );
@@ -156,7 +200,7 @@ export default function Experience() {
               <ol>
                 {ROLES.map((entry, i) => (
                   <TimelineEntry
-                    key={`${entry.role}-${entry.org}`}
+                    key={`${entry.role ?? "group"}-${entry.org}`}
                     entry={entry}
                     showYear={i === 0 || ROLES[i - 1].year !== entry.year}
                   />
