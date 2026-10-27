@@ -21,6 +21,17 @@ export const ARTICLES = [
     size: [994, 992],
   },
   {
+    title: "4th Annual Walktober",
+    pub: "Eugene Weekly",
+    date: "Oct 22, 2026",
+    tags: ["Community", "Culture"],
+    description:
+      "More than 50 free, themed walks fill October across Eugene and Springfield, from a Masonic Cemetery arboretum tour to an Island Park bird walk and a downtown Thrift Shop Hop.",
+    href: "https://eugeneweekly.com/2026/10/22/4th-annual-walktober/",
+    img: "/work/walktober.webp",
+    size: [1200, 779],
+  },
+  {
     title: "Here We Go Again",
     pub: "Eugene Weekly",
     date: "Oct 20, 2026",
@@ -30,6 +41,17 @@ export const ARTICLES = [
     href: "https://eugeneweekly.com/2026/10/20/here-we-go-again/",
     img: "/work/here-we-go-again.webp",
     size: [786, 742],
+  },
+  {
+    title: "Morsels: Serving up change in the food scene",
+    pub: "Eugene Weekly",
+    date: "Oct 15, 2026",
+    tags: ["Food", "Community"],
+    description:
+      "A roundup of Eugene-Springfield restaurant news: Tiger Mama’s third location, a Japanese-style konbini, Hop Valley’s new downtown brewpub, and Oakshire Brewing’s farewell after 20 years.",
+    href: "https://eugeneweekly.com/2026/10/15/morsels-5/",
+    img: "/work/morsels-5.webp",
+    size: [1200, 779],
   },
   {
     title: "Father and Son Find Their Stories in SOJC Master’s Program",
