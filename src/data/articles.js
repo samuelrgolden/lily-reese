@@ -10,6 +10,17 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "From ‘Criminal Minds’ to Communication Messaging",
+    pub: "SOJC",
+    date: "Oct 27, 2026",
+    tags: ["Audio", "Campus"],
+    description:
+      "On One Cool Story, Lily sits down with Assistant PR Professor Nikki McClaran, who researches health messaging and traces her PR and sociology career back to childhood “Criminal Minds” reruns.",
+    href: "https://onecoolstorysojc.podbean.com/e/episode-26-from-criminal-minds-to-communication-messaging/",
+    img: "/work/one-cool-story-mcclaran.webp",
+    size: [994, 992],
+  },
+  {
     title: "Here We Go Again",
     pub: "Eugene Weekly",
     date: "Oct 20, 2026",
