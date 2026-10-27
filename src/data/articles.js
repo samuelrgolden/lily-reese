@@ -18,7 +18,7 @@ export const ARTICLES = [
       "On One Cool Story, Lily sits down with Assistant PR Professor Nikki McClaran, who researches health messaging and traces her PR and sociology career back to childhood “Criminal Minds” reruns.",
     href: "https://onecoolstorysojc.podbean.com/e/episode-26-from-criminal-minds-to-communication-messaging/",
     img: "/work/one-cool-story-mcclaran.webp",
-    size: [300, 300],
+    size: [994, 992],
   },
   {
     title: "Here We Go Again",
