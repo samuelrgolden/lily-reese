@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "Here We Go Again",
-  pub: "Eugene Weekly",
-  date: "October 20, 2026",
-  tag: "Policy",
-  img: "/work/here-we-go-again.webp",
-  href: "https://eugeneweekly.com/2026/10/20/here-we-go-again/",
+  title: "From ‘Criminal Minds’ to Communication Messaging",
+  pub: "SOJC",
+  date: "October 27, 2026",
+  tag: "Audio",
+  img: "/work/one-cool-story-mcclaran.webp",
+  href: "https://onecoolstorysojc.podbean.com/e/episode-26-from-criminal-minds-to-communication-messaging/",
 };
 
 function ArrowUpRight({ className = "" }) {
