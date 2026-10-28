@@ -172,9 +172,16 @@ export default function Hero() {
                   <span className="smallcaps text-[hsl(var(--oxblood))]">Latest Dispatch</span>
                   <ArrowUpRight className="text-[hsl(var(--muted-warm))] transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[hsl(var(--oxblood))]" />
                 </span>
+                {/* The frame stays 3:2 so the card's height, and the ticker pinned
+                    under it, never move. object-contain shows the whole image
+                    inside it: a 3:2 lead photo still fills the frame, and square
+                    podcast art sits centred on paper instead of losing its top
+                    and bottom (and its title text) to a crop. The tag sits in
+                    the bottom corner because cover art puts its headline in the
+                    top-left, which is where the tag used to cover it. */}
                 <span className="relative mt-3 block aspect-[3/2] overflow-hidden rounded-lg bg-[hsl(var(--paper-deep))]">
-                  <img src={DISPATCH.img} alt="" className="h-full w-full object-cover" />
-                  <span className="smallcaps absolute left-3 top-3 rounded-sm border border-[hsl(var(--ink)/0.15)] bg-[hsl(var(--paper))] px-2.5 py-1 text-[0.6rem] text-[hsl(var(--ink))]">
+                  <img src={DISPATCH.img} alt="" className="h-full w-full object-contain" />
+                  <span className="smallcaps absolute bottom-3 left-3 rounded-sm border border-[hsl(var(--ink)/0.15)] bg-[hsl(var(--paper))] px-2.5 py-1 text-[0.6rem] text-[hsl(var(--ink))]">
                     {DISPATCH.tag}
                   </span>
                 </span>
