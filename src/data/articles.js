@@ -10,6 +10,39 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "SOJC Students Help Run Oregon’s Gubernatorial Debate",
+    pub: "SOJC",
+    date: "Oct 29, 2026",
+    tags: ["Campus", "Policy"],
+    description:
+      "SOJC students serve as a panelist, timekeepers and a teleprompter operator at Oregon’s first debate between Gov. Tina Kotek and State Sen. Christine Drazan, co-hosted by the school, the Oregon Journalism Project, Lookout Eugene-Springfield and KVAL.",
+    href: "https://journalism.uoregon.edu/news/uo-students-oregon-gubernatorial-debate",
+    img: "/work/gubernatorial-debate.webp",
+    size: [1200, 800],
+  },
+  {
+    title: "Best Drag Queen",
+    pub: "Eugene Weekly",
+    date: "Oct 29, 2026",
+    tags: ["Culture", "Profiles"],
+    description:
+      "Maliena Bitchcock, the drag persona of James Roberts, tops Eugene Weekly’s Best of Eugene list after 21 years of performing, hosting Bingo at The Sparrow & Serpent and raising money for local organizations.",
+    href: "https://eugeneweekly.com/2026/10/29/best-drag-queen-7/",
+    img: "/work/best-drag-queen.webp",
+    size: [1200, 779],
+  },
+  {
+    title: "Best Drag King",
+    pub: "Eugene Weekly",
+    date: "Oct 29, 2026",
+    tags: ["Culture", "Profiles"],
+    description:
+      "Heavy Cream (Mel Funke) is named Best Drag King for the third time, and hosts “Men at Werk,” a bimonthly show for drag kings that marks its third anniversary on Nov. 20.",
+    href: "https://eugeneweekly.com/2026/10/29/best-drag-king-4/",
+    img: "/work/best-drag-king.webp",
+    size: [1200, 779],
+  },
+  {
     title: "From ‘Criminal Minds’ to Communication Messaging",
     pub: "SOJC",
     date: "Oct 27, 2026",

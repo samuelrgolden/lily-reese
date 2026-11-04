@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "From ‘Criminal Minds’ to Communication Messaging",
+  title: "SOJC Students Help Run Oregon’s Gubernatorial Debate",
   pub: "SOJC",
-  date: "October 27, 2026",
-  tag: "Audio",
-  img: "/work/one-cool-story-mcclaran.webp",
-  href: "https://onecoolstorysojc.podbean.com/e/episode-26-from-criminal-minds-to-communication-messaging/",
+  date: "October 29, 2026",
+  tag: "Campus",
+  img: "/work/gubernatorial-debate.webp",
+  href: "https://journalism.uoregon.edu/news/uo-students-oregon-gubernatorial-debate",
 };
 
 function ArrowUpRight({ className = "" }) {
