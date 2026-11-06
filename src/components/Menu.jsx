@@ -16,6 +16,7 @@ const LINKS = [
   { label: "About", to: "/about" },
   { label: "All Work", to: "/work" },
   { label: "Experience", to: "/experience" },
+  { label: "Resume", to: "/resume" },
   { label: "Contact", to: "/contact" },
 ];
 

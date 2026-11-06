@@ -113,15 +113,21 @@ export default function Hero() {
 
             <Reveal delay={200}>
               <p className="smallcaps mt-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[hsl(var(--muted-warm))] md:justify-start">
-                {/* On a phone the line keeps only where she reports from — the
-                    byline is redundant under a name this size, and the rules
-                    have nothing left to separate. */}
+                {/* On a phone the line keeps where she reports from and how many
+                    read her — the byline is redundant under a name this size. */}
                 <span className="hidden md:block">
                   By <span className="text-[hsl(var(--ink))]">Lily Reese</span>
                 </span>
                 <span className="hidden h-3.5 w-px bg-[hsl(var(--ink)/0.25)] md:block" aria-hidden="true" />
                 <span>
                   Reporting from <span className="text-[hsl(var(--ink))]">Eugene, OR</span>
+                </span>
+                <span className="block h-3.5 w-px bg-[hsl(var(--ink)/0.25)]" aria-hidden="true" />
+                {/* A conservative estimate, mostly Eugene Weekly print readers
+                    (print run x pickup x pass-along x share who read her piece).
+                    About a 9-in-10 chance the real number is higher. */}
+                <span>
+                  Read by <span className="text-[hsl(var(--ink))]">60,000+</span>
                 </span>
                 <span className="hidden h-3.5 w-px bg-[hsl(var(--ink)/0.25)] md:block" aria-hidden="true" />
                 <span className="hidden md:block">Honored — ACP 2025</span>
@@ -143,17 +149,27 @@ export default function Hero() {
                   </span>
                 </a>
 
-                {/* Relocated from the nav, and routed to the standalone contact
-                    page rather than the anchor at the foot of this one. The
-                    hover:bg utility is what still runs on touch and under the
-                    breakpoint; .btn-flow overrides it on desktop with the disc
-                    fill. */}
-                <Link
-                  to="/contact"
-                  className="smallcaps lift btn-flow order-1 whitespace-nowrap rounded-full border border-[hsl(var(--ink))] px-5 py-2.5 [--flow:hsl(var(--oxblood))] hover:bg-[hsl(var(--ink))] hover:text-[hsl(var(--paper))] md:order-none"
-                >
-                  Get in touch
-                </Link>
+                {/* The two buttons travel as a pair, so on a phone they share the
+                    first row and Continue reading drops below them. */}
+                <div className="order-1 flex items-center gap-3 md:order-none">
+                  {/* Relocated from the nav, and routed to the standalone contact
+                      page rather than the anchor at the foot of this one. The
+                      hover:bg utility is what still runs on touch and under the
+                      breakpoint; .btn-flow overrides it on desktop with the disc
+                      fill. */}
+                  <Link
+                    to="/contact"
+                    className="smallcaps lift btn-flow whitespace-nowrap rounded-full border border-[hsl(var(--ink))] px-5 py-2.5 [--flow:hsl(var(--oxblood))] hover:bg-[hsl(var(--ink))] hover:text-[hsl(var(--paper))]"
+                  >
+                    Get in touch
+                  </Link>
+                  <Link
+                    to="/resume"
+                    className="smallcaps lift btn-flow whitespace-nowrap rounded-full border border-[hsl(var(--ink))] px-5 py-2.5 [--flow:hsl(var(--oxblood))] hover:bg-[hsl(var(--ink))] hover:text-[hsl(var(--paper))]"
+                  >
+                    Resume
+                  </Link>
+                </div>
               </div>
             </Reveal>
           </div>

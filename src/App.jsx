@@ -6,6 +6,7 @@ import AboutPage from "./pages/AboutPage.jsx";
 import WorkPage from "./pages/WorkPage.jsx";
 import ExperiencePage from "./pages/ExperiencePage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
+import ResumePage from "./pages/ResumePage.jsx";
 
 /* A route change leaves the browser where it was on the previous page, which on
    a long page means arriving halfway down the new one. Only reset when there's
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/work" element={<WorkPage />} />
           <Route path="/experience" element={<ExperiencePage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/resume" element={<ResumePage />} />
           {/* Anything unrecognised is the front page rather than a dead end. */}
           <Route path="*" element={<Home />} />
         </Routes>

@@ -62,13 +62,15 @@ already installed.
 | Jobs timeline and stats | `ROLES`, `STATS` in `src/components/Experience.jsx` |
 | Email and links | `CONTACTS` in `src/components/Contact.jsx` |
 | Menu links | `LINKS` in `src/components/Menu.jsx` |
+| Resume | Replace `public/Lily-Reese-Resume.pdf`, then redraw `public/resume.webp` from it — the two commands are at the top of `src/pages/ResumePage.jsx` |
 | Colours, fonts, shared styles | `src/index.css` (design tokens at the top) |
 | Browser tab title, search/share description | `index.html` |
 | Photos | `public/` (portraits) and `public/work/` (article thumbnails) |
 
 The home page (`src/pages/Home.jsx`) stacks Hero, About, Work, Experience, Contact. `/about`,
 `/work`, `/experience` and `/contact` are standalone pages that reuse those same components, so an
-edit to a component shows up in both places.
+edit to a component shows up in both places. `/resume` is the one page of its own: a picture of her
+resume PDF with a download button.
 
 ## Adding an article (the most common request)
 
