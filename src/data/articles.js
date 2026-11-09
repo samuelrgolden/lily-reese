@@ -219,6 +219,17 @@ export const ARTICLES = [
     size: [1200, 800],
   },
   {
+    title: "Another Lane County Newspaper Announces Plans to Close",
+    pub: "Eugene Weekly",
+    date: "Aug 24, 2026",
+    tags: ["Media", "Community"],
+    description:
+      "The nonprofit Highway 58 Herald, which has covered the 87-mile corridor from Pleasant Hill to Highway 97 since 2021, will close Sept. 15, with a former editor pointing to the hard economics of a town like Oakridge, population about 3,300.",
+    href: "https://eugeneweekly.com/2026/08/24/another-lane-county-newspaper-announces-plans-to-close/",
+    img: "/work/another-newspaper-closes.webp",
+    size: [532, 532],
+  },
+  {
     title: "Your Pet Has Been Studying You",
     pub: "Eugene Weekly",
     date: "Aug 13, 2026",
