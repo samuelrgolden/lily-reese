@@ -624,6 +624,17 @@ html:not(.js-reveal) .cut-char {
   isolation: isolate;
 }
 
+/* Sub-link under a menu entry: smaller and indented, hairline above. */
+.nav-sublink {
+  padding: 0.7rem 0.75rem 0.7rem 2.2rem;
+  border-top: 1px solid hsl(var(--ink) / 0.12);
+}
+
+.nav-sublink .nav-link-text {
+  font-size: 1.35rem;
+  font-style: italic;
+}
+
 .nav-link-index {
   position: relative;
   z-index: 1;
