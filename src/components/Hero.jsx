@@ -76,10 +76,28 @@ export default function Hero() {
   const dispatchTilt = useTilt();
 
   return (
-    /* pt-16 is exactly the nav's h-16, so the masthead's top rule lands flush
-       against the bottom of the bar instead of floating below it. */
+    /* pt-16 is exactly the nav's h-16, so the ticker lands flush against the
+       bottom of the bar instead of floating below it. */
     <section className="flex min-h-[100svh] flex-col pb-5 pt-16">
-      {/* Full-bleed rule under the nav, with the masthead line beneath it —
+      {/* Full-bleed marquee ticker — sits at the very top, just under the nav */}
+      <div className="overflow-hidden bg-[hsl(var(--paper-deep)/0.55)] py-4">
+        <div className="ticker-track">
+          {[0, 1].map((copy) => (
+            <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
+              {BEATS.map((beat) => (
+                <span key={beat} className="serif flex items-center text-[1.6rem] text-[hsl(var(--ink))] md:text-[2rem]">
+                  <span className="px-7 md:px-9">{beat}</span>
+                  <span className="text-[hsl(var(--oxblood))]" aria-hidden="true">
+                    ·
+                  </span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Full-bleed rule under the ticker, with the masthead line beneath it —
           two labels pushed to the page corners, no closing rule. */}
       <div className="rule-strong" />
       <div className="smallcaps flex w-full items-center justify-between gap-4 px-6 py-3 text-[hsl(var(--muted-warm))] md:px-6">
@@ -143,14 +161,14 @@ export default function Hero() {
                   href="#about"
                   className="group dl lift order-2 inline-flex items-center gap-2 smallcaps text-[hsl(var(--ink))] hover:text-[hsl(var(--oxblood))] md:order-none"
                 >
-                  Continue reading
+                  Scroll for more information
                   <span aria-hidden="true" className="dl-arrow">
                     ↓
                   </span>
                 </a>
 
                 {/* The two buttons travel as a pair, so on a phone they share the
-                    first row and Continue reading drops below them. */}
+                    first row and Scroll for more information drops below them. */}
                 <div className="order-1 flex items-center gap-3 md:order-none">
                   {/* Relocated from the nav, and routed to the standalone contact
                       page rather than the anchor at the foot of this one. The
@@ -206,23 +224,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Full-bleed marquee ticker — pinned to the bottom of the first viewport */}
-      <div className="mt-auto overflow-hidden border-y border-[hsl(var(--ink)/0.18)] bg-[hsl(var(--paper-deep)/0.55)] py-4">
-        <div className="ticker-track">
-          {[0, 1].map((copy) => (
-            <div key={copy} className="flex shrink-0 items-center" aria-hidden={copy === 1}>
-              {BEATS.map((beat) => (
-                <span key={beat} className="serif flex items-center text-[1.6rem] text-[hsl(var(--ink))] md:text-[2rem]">
-                  <span className="px-7 md:px-9">{beat}</span>
-                  <span className="text-[hsl(var(--oxblood))]" aria-hidden="true">
-                    ·
-                  </span>
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }
