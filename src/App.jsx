@@ -14,7 +14,17 @@ import ResumePage from "./pages/ResumePage.jsx";
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
-    if (!hash) window.scrollTo(0, 0);
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    /* Arriving from another page with an anchor (the menu's "Selected Work"),
+       the target doesn't exist until the new page has rendered. */
+    const id = decodeURIComponent(hash.slice(1));
+    const t = setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView();
+    }, 50);
+    return () => clearTimeout(t);
   }, [pathname, hash]);
   return null;
 }

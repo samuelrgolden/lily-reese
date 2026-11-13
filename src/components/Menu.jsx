@@ -14,7 +14,9 @@ if (!gsap.parseEase("sterling")) {
    all four sections on it; these are additions, not a replacement. */
 const LINKS = [
   { label: "About", to: "/about" },
-  { label: "All Work", to: "/work" },
+  /* "Selected Work" is the five-story section on the front page; All Work (the
+     full searchable list) sits beneath it as a sub-link. */
+  { label: "Selected Work", to: "/#work", children: [{ label: "All Work", to: "/work" }] },
   { label: "Experience", to: "/experience" },
   { label: "Resume", to: "/resume" },
   { label: "Contact", to: "/contact" },
@@ -174,6 +176,15 @@ export default function Menu() {
                     <span className="nav-link-text serif">{link.label}</span>
                     <span className="nav-link-hover-bg" aria-hidden="true" />
                   </Link>
+                  {link.children?.map((sub) => (
+                    <Link key={sub.to} to={sub.to} className="nav-link nav-sublink" onClick={close}>
+                      <span className="nav-link-index smallcaps" aria-hidden="true">
+                        ↳
+                      </span>
+                      <span className="nav-link-text serif">{sub.label}</span>
+                      <span className="nav-link-hover-bg" aria-hidden="true" />
+                    </Link>
+                  ))}
                 </li>
               ))}
             </ul>
