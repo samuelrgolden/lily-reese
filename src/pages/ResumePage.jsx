@@ -23,9 +23,9 @@ const RESUME = {
   img: "/resume.webp",
   size: [1700, 2200],
   alt:
-    "Lily Reese’s resume: reporting and editing at Eugene Weekly, Ascend Magazine, SOJC Communications, " +
-    "Ethos Magazine, the Daily Emerald and Align Magazine, and a B.A. in Journalism with a minor in " +
-    "Food Studies from the University of Oregon’s Clark Honors College, 2027.",
+    "Lily Reese’s resume: reporting and editing at Ascend Magazine, Eugene Weekly, SOJC Communications, " +
+    "Ethos Magazine and the Daily Emerald, and a B.A. in Journalism with a minor in Food Studies from " +
+    "the University of Oregon’s Clark Honors College, 2027.",
 };
 
 export default function ResumePage() {
