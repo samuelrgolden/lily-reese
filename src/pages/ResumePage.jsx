@@ -16,12 +16,15 @@ import CutReveal from "../components/CutReveal.jsx";
  *   python3 scripts/to_webp.py /tmp/resume.png public/resume.webp --width 1700 --max-kb 450
  *
  * The script prints width × height; if it changed, copy it into `size` below.
+ *
+ * (The current file was built from a picture of the resume rather than a PDF export, so its
+ * text can't be selected. Dropping in a real PDF export later restores that.)
  */
 const RESUME = {
   pdf: "/Lily-Reese-Resume.pdf",
   fileName: "Lily-Reese-Resume.pdf",
   img: "/resume.webp",
-  size: [1700, 2200],
+  size: [1545, 1999],
   alt:
     "Lily Reese’s resume: reporting and editing at Ascend Magazine, Eugene Weekly, SOJC Communications, " +
     "Ethos Magazine and the Daily Emerald, and a B.A. in Journalism with a minor in Food Studies from " +
