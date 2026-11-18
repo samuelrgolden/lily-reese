@@ -20,12 +20,12 @@ const BEATS = [
 ];
 
 const DISPATCH = {
-  title: "SOJC Students Help Run Oregon’s Gubernatorial Debate",
+  title: "Master’s Alum Finds Meaning in Community Impact Work",
   pub: "SOJC",
-  date: "October 29, 2026",
-  tag: "Campus",
-  img: "/work/gubernatorial-debate.webp",
-  href: "https://journalism.uoregon.edu/news/uo-students-oregon-gubernatorial-debate",
+  date: "November 17, 2026",
+  tag: "Profiles",
+  img: "/work/symone-sparrow.webp",
+  href: "https://journalism.uoregon.edu/news/symone-sparrow-community-impact-work",
 };
 
 function ArrowUpRight({ className = "" }) {

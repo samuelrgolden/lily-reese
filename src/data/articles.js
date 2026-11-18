@@ -10,6 +10,17 @@
    prints it. It stops the cards jumping around while the photos load. */
 export const ARTICLES = [
   {
+    title: "Master’s Alum Finds Meaning in Community Impact Work",
+    pub: "SOJC",
+    date: "Nov 17, 2026",
+    tags: ["Profiles", "Campus"],
+    description:
+      "Symone Sparrow ’14, M.S. ’20 now leads community impact work at Columbia Sportswear, and credits her graduate coursework in research and evaluation with teaching her to measure impact in both numbers and personal stories.",
+    href: "https://journalism.uoregon.edu/news/symone-sparrow-community-impact-work",
+    img: "/work/symone-sparrow.webp",
+    size: [396, 450],
+  },
+  {
     title: "SOJC Students Help Run Oregon’s Gubernatorial Debate",
     pub: "SOJC",
     date: "Oct 29, 2026",
